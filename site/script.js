@@ -270,9 +270,10 @@ productCards.forEach(card => {
     card.addEventListener('click', () => {
         const productId = card.getAttribute('data-id'); // Получаем ID товара
         const product = productsData[productId]; // Достаем данные из объекта
+        const productImage = card.getAttribute('data-image'); // Получаем путь к изображению из HTML
 
         if (product) {
-            modalImage.src = product.image;
+            modalImage.src = productImage; // Устанавливаем изображение
             modalTitle.textContent = product.name;
             modalWeight.textContent = product.weight;
             modalDescription.textContent = product.description;
@@ -287,4 +288,3 @@ productCards.forEach(card => {
         }
     });
 });
-
