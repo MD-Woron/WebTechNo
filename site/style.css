@@ -228,6 +228,7 @@ nav a:hover::after {
     font-size: 48px;
     font-weight: 700;
     text-transform: uppercase;
+	margin-left: -30px; /* Сдвиг влево */
 }
 
 /* Слайдер сезонных напитков */
@@ -659,5 +660,13 @@ footer {
 
 .modal-nutrition p {
     margin: 5px 0;
+}
+
+.section-title {
+    font-size: 24px;
+    margin: 20px auto; /* Отцентрируйте заголовок */
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center; /* Центрирование текста */
 }
 
