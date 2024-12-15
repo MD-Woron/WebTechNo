@@ -15,28 +15,51 @@ searchBtn.addEventListener('click', () => {
     }
 });
 
-// Слайдер сезонных напитков
+//слайдер напитков
 const sliderTrack = document.getElementById('slider-track');
-const prevSlideBtn = document.getElementById('prev-slide');
-const nextSlideBtn = document.getElementById('next-slide');
+const nextButton = document.getElementById('next-slide');
+const prevButton = document.getElementById('prev-slide');
+const slides = document.querySelectorAll('.slide');
+
 let slideIndex = 0;
-const slides = sliderTrack.querySelectorAll('.slide');
-const visibleCount = 3;
-const slideWidth = slides[0].offsetWidth + 20;
+const slideWidth = slides[0].offsetWidth;
 
-prevSlideBtn.addEventListener('click', () => {
-    if (slideIndex > 0) {
-        slideIndex--;
-        sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+sliderTrack.innerHTML += sliderTrack.innerHTML;
+sliderTrack.innerHTML += sliderTrack.innerHTML;
+const allSlides = document.querySelectorAll('.slide'); 
+
+slideIndex = slides.length;
+sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+
+nextButton.addEventListener('click', () => {
+    slideIndex++;
+    sliderTrack.style.transition = 'transform 0.3s ease';
+    sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+
+    if (slideIndex >= allSlides.length - slides.length) {
+        setTimeout(() => {
+            sliderTrack.style.transition = 'none';
+            slideIndex = slides.length; 
+            sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+        }, 300); 
     }
 });
 
-nextSlideBtn.addEventListener('click', () => {
-    if (slideIndex < slides.length - visibleCount) {
-        slideIndex++;
-        sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+prevButton.addEventListener('click', () => {
+    slideIndex--;
+    sliderTrack.style.transition = 'transform 0.3s ease';
+    sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+
+    if (slideIndex < slides.length) {
+        setTimeout(() => {
+            sliderTrack.style.transition = 'none'; 
+            slideIndex = allSlides.length - 2 * slides.length; 
+            sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+        }, 300); 
     }
 });
+
+
 
 // Корзина
 const cartInfo = document.getElementById('cart-info');
