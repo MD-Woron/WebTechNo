@@ -580,3 +580,67 @@ footer {
     border-radius:8px;
     cursor:pointer;
 }
+
+.footer {
+    background-color: #1d1d1d;
+    color: #ffffff;
+    padding: 40px 20px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    flex: 1 1 25%;
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.footer-logo p {
+    font-size: 14px;
+    color: #cccccc;
+}
+
+.footer-contacts,
+.footer-email {
+    flex: 1 1 20%;
+    margin-bottom: 20px;
+}
+
+.footer-contacts h4,
+.footer-email h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.footer-contacts p,
+.footer-email p {
+    font-size: 14px;
+    color: #cccccc;
+    margin-bottom: 8px;
+}
+
+.footer-email p {
+    word-wrap: break-word;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #333333;
+    padding-top: 10px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #777777;
+}
