@@ -59,8 +59,6 @@ prevButton.addEventListener('click', () => {
     }
 });
 
-
-
 // Корзина
 const cartInfo = document.getElementById('cart-info');
 const cartDropdown = document.getElementById('cart-dropdown');
