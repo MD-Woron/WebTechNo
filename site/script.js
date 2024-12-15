@@ -190,6 +190,7 @@ anchor.addEventListener('click', function (e) {
 //БЖУ
 
 const productsData = {
+	    // Основное меню (Шаверма)
     "klassicheskaya_shaurma": {
         name: "Классическая шаверма",
         weight: "300 г",
@@ -261,8 +262,150 @@ const productsData = {
         proteins: 18,
         fats: 19,
         carbs: 29
-    }
+    },
+    // Шаверма авторская
+    "originalnaya_shaurma": {
+        name: "Оригинальная шаверма",
+        weight: "300 г",
+        description: "Куриное филе, огурец, томат, капуста китайская.",
+        price: "290 ₽",
+        proteins: 14, // Белки
+        fats: 10,     // Жиры
+        carbs: 25     // Углеводы
+    },
+    "ochen_originalnaya_shaurma": {
+        name: "Очень оригинальная шаверма",
+        weight: "330 г",
+        description: "Куриное филе, корнишоны, морковь по-корейски.",
+        price: "330 ₽",
+        proteins: 15,
+        fats: 12,
+        carbs: 27
+    },
+    "super_originalnaya_shaurma": {
+        name: "Супер оригинальная шаверма",
+        weight: "340 г",
+        description: "Куриное филе, томат, капуста китайская.",
+        price: "340 ₽",
+        proteins: 16,
+        fats: 13,
+        carbs: 23
+    },
+    "super_puper_originalnaya_shaurma": {
+        name: "Супер пупер оригинальная шаверма",
+        weight: "370 г",
+        description: "Куриное филе, бекон, картофель фри.",
+        price: "370 ₽",
+        proteins: 17,
+        fats: 18,
+        carbs: 29
+    },
+
+    // Закуски
+    "kartoshka_free": {
+        name: "Картошка фри",
+        weight: "150 г",
+        description: "Картофель фри, соус по выбору.",
+        price: "290 ₽",
+        proteins: 3,
+        fats: 9,
+        carbs: 37
+    },
+    "suharik": {
+        name: "Сухарь",
+        weight: "200 г",
+        description: "Хрустящий хлеб, специи.",
+        price: "290 ₽",
+        proteins: 6,
+        fats: 10,
+        carbs: 45
+    },
+    "pelmen": {
+        name: "Пельмень",
+        weight: "330 г",
+        description: "Куриное филе, специи, тесто.",
+        price: "330 ₽",
+        proteins: 12,
+        fats: 15,
+        carbs: 30
+    },
+    "kuritsa_grill": {
+        name: "Курица гриль",
+        weight: "350 г",
+        description: "Куриное филе, специи, маринад.",
+        price: "330 ₽",
+        proteins: 25,
+        fats: 20,
+        carbs: 5
+    },
+	 // Ланчи
+    "lanch": {
+        name: "Ланч",
+        weight: "400 г",
+        description: "Куриное филе, огурец, томат, капуста китайская.",
+        price: "290 ₽",
+        proteins: 25,
+        fats: 12,
+        carbs: 40
+    },
+    "eshyo_lanch": {
+        name: "Ещё какой-то ланч",
+        weight: "450 г",
+        description: "Куриное филе, корнишоны, морковь по-корейски.",
+        price: "330 ₽",
+        proteins: 28,
+        fats: 15,
+        carbs: 45
+    },
+    "ocherednoy_lanch": {
+        name: "Очередной ланч",
+        weight: "450 г",
+        description: "Куриное филе, томат, капуста китайская.",
+        price: "340 ₽",
+        proteins: 26,
+        fats: 14,
+        carbs: 50
+    },
+
+    // Детское меню
+    "dolka": {
+        name: "Долька",
+        weight: "100 г",
+        description: "Сочные яблочные дольки.",
+        price: "290 ₽",
+        proteins: 0.5,
+        fats: 0.2,
+        carbs: 15
+    },
+    "sok": {
+        name: "Сок",
+        weight: "200 мл",
+        description: "Свежевыжатый апельсиновый сок.",
+        price: "330 ₽",
+        proteins: 1,
+        fats: 0,
+        carbs: 20
+    },
+    "blinchiki": {
+        name: "Блинчики",
+        weight: "300 г",
+        description: "Блины с медом и фруктами.",
+        price: "340 ₽",
+        proteins: 8,
+        fats: 10,
+        carbs: 50
+    },
+    "konfetka": {
+        name: "Конфетка",
+        weight: "50 г",
+        description: "Шоколадная конфета с ярким драже.",
+        price: "370 ₽",
+        proteins: 2,
+        fats: 5,
+        carbs: 40
+    },
 };
+
 
 
 
