@@ -1,298 +1,1203 @@
+<!-- TODO
+    3. Сделать кликабельными добавки к блюдам
+    4. Сделать латте кликабельным
+    5. Шрифт полностью поменять
+    6. Убрать поиск
+    7. Добавить другом цвет к карточкам
+    8. Сезонное меню сделать повторяющимся
+    9. Подвигать текст оглавления
+    10. Сделать навигацию уже
+    11. Фиксированная корзина в кружочке
+    12. Поменять надписи (сезонные напитки, сезонное меню)
+    13. В карточке поменять цвет "добавить" + количество и цену поставить рядом, чтобы было красиво
+    14. Убрать нижний футер либо написать туда что-то вразумительное
+    15. Добавить БЖУ ---
+    16. Изменить описание карточек
+    17. Добавить "динамичное" время доставки ????
+    18. Добавить карточки для кофе
+    19. Сгенерировать логотип
+    20. Добавить страницу корзины ?????
+    98. Отдельные страницы для доставки ????
+    99. Сделать интеграцию с Yandex картами, для доставки ????
+    100. Сделать так чтобы на карте можно было выбирать конкретное место, куда необходимо будет доставить ЕДУ ????
+    101. Подключение оплаты ?????
+    150. Залить на github pages
+    200. Сделать вёрстку адаптивной (для каждого дисплея свой размер)
+    250. Добавить админ-панель для добавления/изменения контента
+    300. Добавить чат с "поддержкой"
+    1500. Добавить какую-нибудь фишку-пасхалочку ?????
+!-->
 <!DOCTYPE html>
-<html>
+
+
+<html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Шаурма</title>
-    <link rel="stylesheet" href="assets\styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ВЛАВАШЕ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #fff;
+            color: #000;
+        }
+
+        header {
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+
+        
+        @keyframes slideme {
+          0% {
+            left: -30px;
+            margin-left: 0px;
+          }
+          30% {
+            left: 110%;
+            margin-left: 80px;
+          }
+          100% {
+            left: 110%;
+            margin-left: 80px;
+          }
+        }
+
+        #search-btn {
+          font-family: 'Roboto', sans-serif;
+          overflow: hidden;
+          position: relative;
+          border-radius: 5px;
+          background-color: black;
+          color: white;
+
+        }
+
+        #search-btn:after {
+          content: "";
+          display: block;
+          width: 30px;
+          height: 200px;
+          margin-left: 60px;
+          background: #fff;
+          opacity: 0.5;
+          position: absolute;
+          left: -40px;
+          top: -100px;
+          z-index: 1;
+          transform: rotate(45deg);
+          transition: all 0.1s;
+          animation-name: slideme;
+          animation-duration: 3s;
+          animation-delay: 0.05s;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: infinite;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .header-city-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        .city-select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background: linear-gradient(to right, black, grey);
+          color: white;
+          font-weight: 500;
+          font-size: 15px;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        .city-select::-ms-expand {
+          display: none;
+        }
+
+        .city-select option {
+            background-color: black;
+        }
+
+        nav {
+            background: transparent; /* Прозрачный фон */
+            font-size: 25px;
+            padding: 10px 0;
+            text-align: center; /* Выравнивание по центру */
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            margin: 0 20px;
+            position: relative; /* Для псевдоэлемента */
+            padding-bottom: 5px; /* Отступ снизу для псевдоэлемента */
+        }
+
+        nav a:hover {
+            color: #06042b; /* Цвет при наведении */
+        }
+
+        nav a::after { /* Псевдоэлемент для подчеркивания */
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: #303b33;
+            transition: width 0.3s ease; /* Плавное появление подчеркивания */
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+        .search-container {
+          position: relative;
+          display: inline-block;
+        }
+
+        .search-input {
+          border: 2px solid transparent;
+          border-radius: 20px;
+          padding: 8px 12px;
+          transition: border-color 0.3s ease;
+          outline: none;
+          border-color: black;
+        }
+
+        .search-input:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+        }
+
+        .search-input:focus + .search-icon {
+          color: #007bff;
+        }
+
+        .search-container input {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .cart-info {
+            position: relative;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .cart-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            z-index: 999;
+            width: 200px;
+        }
+
+        .cart-dropdown.empty-cart {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .cart-item button {
+            background: #f00;
+            color: #fff;
+            border: none;
+            padding: 2px 5px;
+            cursor: pointer;
+        }
+
+        .cart-info:hover .cart-dropdown {
+            display: block;
+        }
+
+        .main-content {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Баннер */
+        .banner {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .banner .banner-text {
+            font-size: 48px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Слайдер сезонных напитков */
+        .seasonal-drinks {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 30px;
+            position: relative;
+        }
+
+        .seasonal-drinks h2 {
+            text-transform: uppercase;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .slider {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .slide {
+            min-width: 250px;
+            margin-right: 20px;
+            text-align: center;
+        }
+        .slide:hover {
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .slide img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .slide h3 {
+            font-size: 16px;
+            margin: 10px 0;
+            font-weight: 400;
+        }
+
+
+        .slider-controls {
+          position: absolute; 
+          top: 50%; 
+          left: 0; 
+          width: 100%; 
+          display: flex; 
+          justify-content: space-between; 
+          align-items: center; 
+          transform: translateY(-50%); 
+          z-index: 10; 
+        }
+
+                /* СТРЕЛОЧКИ!!!!!!!!! */
+        .arrow-6 {
+            margin:0;
+        }
+        .arrow-6 svg {
+          width: 30px;
+          height: auto;
+          cursor: pointer;
+          overflow: visible;
+        }
+        .arrow-6 svg polygon, 
+        .arrow-6 svg path {
+            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            fill: #0e141a;
+        }
+        .arrow-6 svg:hover polygon, 
+        .arrow-6 svg:hover path {
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+            fill: #000;
+        }
+        .arrow-6 svg:hover .arrow-6-pl {
+            animation: arrow-6-anim 1s cubic-bezier(0.2, 1, 0.3, 1) infinite;
+        }
+        .arrow-6 svg:hover .arrow-6-pl-fixed {
+            animation: arrow-6-fixed-anim 1s cubic-bezier(0.2, 1, 0.3, 1) infinite;
+        }
+         
+        @keyframes arrow-6-anim {
+            0% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            5% {
+                transform: translateX(-0.1rem);
+            }
+            100% {
+                transform: translateX(1rem);
+                opacity: 0;
+            }
+        }
+        @keyframes arrow-6-fixed-anim {
+            5% {
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.4;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+
+
+        /* Сетка товаров */
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            width: calc((100% - 60px)/4);
+            box-sizing: border-box;
+            padding: 20px;
+            position: relative;
+            transition: box-shadow 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .product-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: orange;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 8px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .product-tag.vegan {
+            background: green;
+        }
+
+        .product-image-container {
+            position: relative;
+            margin-bottom: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .product-image-container img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+            min-height: 40px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .product-select-btn {
+            background: #fff;
+            border: 1px solid #000;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .product-select-btn:hover {
+            background: #f0f0f0;
+        }
+
+        footer {
+            background: #f7f7f7;
+            padding: 20px;
+            text-align: center;
+            color: #555;
+            margin-top: 40px;
+        }
+
+        /* Модальное окно */
+        .modal-overlay {
+            position: fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background: rgba(0,0,0,0.5);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:1000;
+        }
+
+        .modal {
+            background:#fff;
+            border-radius:8px;
+            max-width:800px;
+            width:90%;
+            max-height:90%;
+            overflow:auto;
+            position: relative;
+            padding:20px;
+            display:flex;
+            gap:20px;
+        }
+
+        .modal .close-btn {
+            position:absolute;
+            top:20px;
+            right:20px;
+            background: none;
+            border:none;
+            font-size:24px;
+            cursor:pointer;
+        }
+
+        .modal-left, .modal-right {
+            flex:1;
+        }
+
+        .modal-left img {
+            width:100%;
+            height:auto;
+            border-radius:8px;
+        }
+
+        .modal-title {
+            font-size:24px;
+            font-weight:700;
+            margin-bottom:10px;
+        }
+
+        .modal-weight {
+            font-size:14px;
+            color:#999;
+            margin-bottom:10px;
+        }
+
+        .modal-description {
+            font-size:14px;
+            color:#333;
+            margin-bottom:20px;
+        }
+
+        .options-title {
+            font-size:16px;
+            font-weight:700;
+            margin-bottom:10px;
+        }
+
+        .options-subtitle {
+            font-size:14px;
+            color:#666;
+            margin-bottom:20px;
+        }
+
+        .options-grid {
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+
+        .option-item {
+            background:#f7f7f7;
+            border-radius:8px;
+            padding:10px;
+            font-size:14px;
+            text-align:center;
+            cursor:pointer;
+            flex:1 1 calc(33.33% - 20px);
+        }
+
+        .bottom-panel {
+            margin-top:20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .quantity-container {
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .quantity-container button {
+            width:30px;
+            height:30px;
+            background:#eee;
+            border:none;
+            cursor:pointer;
+            font-size:16px;
+            font-weight:700;
+            border-radius:4px;
+        }
+
+        .add-to-cart-btn {
+            background:pink;
+            border:none;
+            padding:10px 20px;
+            font-size:16px;
+            font-weight:700;
+            border-radius:8px;
+            cursor:pointer;
+        }
+    </style>
 </head>
 <body>
-<header class="topheader">
-<div>
-    <section class="topheader">
-         <a href="/">
-         <img src="assets\img\images.jpeg" width="10%"> </a>
-         <h1>Ваш город Новосибирск </h1>
-         <p> Доставка работает круглосуточно </p>
-         <h3> Выберите адрес </h3>
-    </section>
-    <div>
-        <button type="button">Войти</button>
+
+<header>
+    <!-- Строка с логотипом -->
+    <header>
+    <div class="header-top">
+        <div class="logo">ВЛАВАШЕ</div>
+    <!-- Строка с выбором города и доставкой -->
+    <div class="header-city-info">
+        <div>
+            Ваш город:
+        </div>
+        <select class="city-select" id="city-select">
+            <option value="Москва">Москва</option>
+            <option value="Санкт-Петербург">Санкт-Петербург</option>
+            <option value="Новосибирск" selected>Новосибирск</option>
+            <option value="Екатеринбург">Екатеринбург</option>
+            <option value="Нижний Новгород">Нижний Новгород</option>
+        </select>
+        <div>
+            Доставка работает круглосуточно
+        </div>
     </div>
- </div>
+    <div class="header-bottom">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Поиск по сайту...">
+            <button id="search-btn">Поиск</button>
+        </div>
+
+        <div class="cart-info" id="cart-info">
+            Корзина <span id="cart-count">(0)</span>
+            <div class="cart-dropdown" id="cart-dropdown">
+                <div class="empty-cart">В корзине пусто</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Навигация -->
+    <nav>
+        <a href="#seasonal">Сезонное меню</a>
+        <a href="#shawarma">Шаурма</a>
+        <a href="#author-shawarma">Шаверма Авторская</a>
+        <a href="#snacks">Закуски</a>
+        <a href="#lunches">Ланчи</a>
+        <a href="#kids">Детское меню</a>
+        <a href="#delivery-payment">Доставка и оплата</a>
+    </nav>
+    <!-- Поиск и корзина -->
 </header>
- <section class="topbuttonsection">
-     <button class="button" type="button">Шаурма</button>
-     <button class="button" type="button">Шаурма МИНИ</button>
-     <button class="button" type="button">Шаурма авторская</button>
-     <button class="button" type="button">Шаурма сезонная</button>
-     <button class="button" type="button">Комбо</button>
-     <button class="button" type="button">Соусы</button>
-     <button class="button" type="button">Доставка и оплата</button>
-</section>
- <p><img alt="100 БОНУСОВ НА ДЕНЬ РОЖДЕНИЯ" src="assets\img\birthday.webp" width="60%"></p>
- <h2>Новое и популярное</h2>
-<main class="maincontainer">
-<section>
-	<h2 class="ff">Шаурма</h2>
-	<div class="menucontainersparent">
-		<article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
+
+<div class="main-content">
+
+    <!-- Баннер -->
+    <section class="banner">
+        <div class="banner-text">Сезонные<br>Напитки</div>
+    </section>
+
+    <!-- Слайдер с сезонными напитками -->
+    <section class="seasonal-drinks" id="seasonal">
+        <h2>Сезонное меню</h2>
+        <div class="slider">
+            <div class="slider-track" id="slider-track">
+                <div class="slide">
+                    <img src="https://sun9-51.userapi.com/impg/ddEsaU4AyByNBshPXMFz_sn1omzlk2-tabyKPg/l2OVX4bo-cA.jpg?size=1024x1024&quality=95&sign=36f744d4bbcbf6aad6e5eefad8226c97&type=album" alt="Латте карамельный апельсин">
+                    <h3>Латте карамельный апельсин</h3>
+
                 </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
+                <div class="slide">
+                    <img src="https://sun9-57.userapi.com/impg/8fCCMhZOOYJUOf0eIDQxxFcOvZiRoM7Q42EOAQ/D7H9bVMEBPM.jpg?size=1024x1024&quality=95&sign=c797e25990046c4c5ac7dc5b323ebf63&type=album" alt="Латте пряное печенье">
+                    <h3>Латте пряное печенье</h3>
                 </div>
-        </article>
-		<article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
+                <div class="slide">
+                    <img src="https://sun9-24.userapi.com/impg/zhhB9aL1ac_4oex9GONrbafUat6zh_mFY59OHg/Wj_0NUcUvkg.jpg?size=1024x1024&quality=95&sign=82489ae0e94fc60741dda188a63ddf71&type=album" alt="Латте имбирный пряник">
+                    <h3>Латте имбирный пряник</h3>
                 </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-		<article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
+                <div class="slide">
+                    <img src="https://sun9-80.userapi.com/impg/gYIpEP2iAQS2dk3Z5BCxMh6Xbl6ia7ZNu1KI9g/96urzd318yA.jpg?size=800x800&quality=95&sign=629a93a0949bf1c1765d31c9cd383287&type=album" alt="Латте ёлочка">
+                    <h3>Латте ёлочка</h3>
                 </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
+                <div class="slide">
+                    <img src="https://sun9-73.userapi.com/impg/xBB2pr0dFUVtOakKEDqk2USKkNS5vH2gO5V1GQ/hL7dmbeuRpE.jpg?size=1024x1024&quality=95&sign=7f0c3689b005f1010bdc2d505be3a7fe&type=album" alt="Латте Дед Мороз">
+                    <h3>Латте Дед Мороз</h3>
                 </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
+                <div class="slide">
+                    <img src="https://psv4.userapi.com/s/v1/d/WgY04VMxBAIGGEi5SwVziRV6tAelS0Z5e0urCJ-pLhIrIYMIqKVlxD5eGX3cmyzKVtlRCOURH7NQAPIpdrBQ9D5NuAghHErQV95vCYE_aFXdV3x83Hlk6Q/sosulich.jpg" alt="Латте сосулька">
+                    <h3>Латте сосулька</h3>
                 </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
+            </div>
+        </div>
+<div class="slider-controls">
+    <div id="prev-slide" class="arrow-6">
+        <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+                <polygon class="arrow-6-pl" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                <polygon class="arrow-6-pl-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+            </g>
+        </svg>
     </div>
-</section>
-
-<section>
-    <h2 class="ff">Шаурма МИНИ</h2>
-    <div class="menucontainersparent">
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
+    <div id="next-slide" class="arrow-6">
+        <svg width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g>
+                <polygon class="arrow-6-pl" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                <polygon class="arrow-6-pl-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                <path d="M-4.58892184e-16,0.56157424 L-4.58892184e-16,16.1929159 L9.708,8.33860465 L-1.64313008e-15,0.56157424 L-4.58892184e-16,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+            </g>
+        </svg>
     </div>
-</section>
+</div>
+           
+            <!-- <button class = "arrow", id="prev-slide">←</button>
+            <button class = "arrow", id="next-slide">→</button> -->
+        </div>
+    </section>
 
-<section>
-    <h2 class="ff">Шаурма Авторская</h2>
-    <div class="menucontainersparent">
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
-        <article class="menucontainerschild">
-                <div>
-                    <img class="menuimage" src="assets\img\k7hxui97z5q8j4jb01zehj3vqbfx.webp" width=280px>
-                </div>
-                <div>
-                    <div>
-                        <h3 class="menuname">Барбекю шаурма</h3>
-                        <p class="menudescription">Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус барбекю, соус белый, лаваш бездрожжевой</p>
-                    </div>
-                    <div class="menuprice">
-                        <p class="menudescription">От 350₽</p>
-                        <button class="choosebutton" type="button">Выбрать</button>
-                    </div>
-                </div>      
-        </article>
+    
+   <h2 class="section-title" id="shawarma">Шаурма</h2>
+    <div class="products-grid">
+        <!-- Классическая шаверма -->
+        <div class="product-card" data-name="Классическая шаверма" data-price="290" data-image="https://sun9-15.userapi.com/impg/eCjTgJtIr6kckdpzlValUQgG6Lc8oQZ2Un5a3w/jveF4ggBTzE.jpg?size=1024x1024&quality=95&sign=097fe199c1195c3ff83dceab19320625&type=album" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
+            <div class="product-image-container">
+                <img src="https://sun9-15.userapi.com/impg/eCjTgJtIr6kckdpzlValUQgG6Lc8oQZ2Un5a3w/jveF4ggBTzE.jpg?size=1024x1024&quality=95&sign=097fe199c1195c3ff83dceab19320625&type=album" alt="Классическая шаверма">
+            </div>
+            <h3 class="product-name">Классическая шаверма</h3>
+            <p class="product-description">Куриное филе, огурец, томат, капуста китайская...</p>
+            <div class="product-price">от 290 Р</div>
+        </div>
+
+        <!-- Фирменная шаверма (Хит) -->
+        <div class="product-card" data-name="Фирменная шаверма" data-price="330" data-image="https://sun9-65.userapi.com/impg/kNoQaeaNjEfkQo7_Ox10Tc2UTT842vvuvrNcDQ/X1lcIozpgeE.jpg?size=1024x1024&quality=95&sign=998ffda24f68b72ff7c39e807141b0ef&type=album" data-description="Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соус красный аджика, соус белый, лаваш бездрожжевой." data-weight="330 г">
+            <span class="product-tag">ХИТ</span>
+            <div class="product-image-container">
+                <img src="https://sun9-65.userapi.com/impg/kNoQaeaNjEfkQo7_Ox10Tc2UTT842vvuvrNcDQ/X1lcIozpgeE.jpg?size=1024x1024&quality=95&sign=998ffda24f68b72ff7c39e807141b0ef&type=album" alt="Фирменная шаверма">
+            </div>
+            <h3 class="product-name">Фирменная шаверма</h3>
+            <p class="product-description">Куриное филе, корнишоны, морковь по-корейски...</p>
+            <div class="product-price">от 330 Р</div>
+        </div>
+
+        <!-- Моцарелла шаверма -->
+        <div class="product-card" data-name="Моцарелла шаверма" data-price="340" data-image="https://psv4.userapi.com/s/v1/d/VsUCNhum2_YKPhh5dCq-7V1Gd78XTXPIzpzKldiQvJm3jtYukmUPkiatkHcMp3DfMhSS5zJTsqWmYt_RuCNaufLZ8R20B48cRQL633sM4SlIp-vXF1vTqA/motsarella_shaverma.jpg" data-description="Куриное филе, томат, капуста китайская, лук красный, соус белый, сыр моцарелла, лаваш бездрожжевой." data-weight="320 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/VsUCNhum2_YKPhh5dCq-7V1Gd78XTXPIzpzKldiQvJm3jtYukmUPkiatkHcMp3DfMhSS5zJTsqWmYt_RuCNaufLZ8R20B48cRQL633sM4SlIp-vXF1vTqA/motsarella_shaverma.jpg" alt="Моцарелла шаверма">
+            </div>
+            <h3 class="product-name">Моцарелла шаверма</h3>
+            <p class="product-description">Куриное филе, томат, капуста китайская...</p>
+            <div class="product-price">от 340 Р</div>
+        </div>
+
+        <!-- Барбекю шаверма -->
+        <div class="product-card" data-name="Барбекю шаверма" data-price="370" data-image="https://sun9-77.userapi.com/impg/ePx-untRbjrqTpdUNAwbep5OXEyAnn7vCK2ROg/XNVGVapMrxI.jpg?size=1024x1024&quality=95&sign=ef5e7f065798c8ce73a8a1da58dda613&type=album" data-description="Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус Барбекю." data-weight="350 г">
+            <div class="product-image-container">
+                <img src="https://sun9-77.userapi.com/impg/ePx-untRbjrqTpdUNAwbep5OXEyAnn7vCK2ROg/XNVGVapMrxI.jpg?size=1024x1024&quality=95&sign=ef5e7f065798c8ce73a8a1da58dda613&type=album" alt="Барбекю шаверма">
+            </div>
+            <h3 class="product-name">Барбекю шаверма</h3>
+            <p class="product-description">Куриное филе, бекон, картофель фри...</p>
+            <div class="product-price">от 370 Р</div>
+        </div>
+        <!-- Мексиканская шаверма -->
+        <div class="product-card" data-name="Мексиканская шаверма" data-price="290" data-image="https://psv4.userapi.com/s/v1/d/IgmfSVKhtmJe-6i76cyu74XeavdyfUvSUeQi_cNPGpIVHwRM6ubTvuBUlgAzcIDYw8MZTHNCx8C4vyydUdVsYPQvzMFGC63rb8yiblGNxYymFr-GcQY7Ww/mexika.jpg" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/IgmfSVKhtmJe-6i76cyu74XeavdyfUvSUeQi_cNPGpIVHwRM6ubTvuBUlgAzcIDYw8MZTHNCx8C4vyydUdVsYPQvzMFGC63rb8yiblGNxYymFr-GcQY7Ww/mexika.jpg" alt="Мексиканская шаверма">
+            </div>
+            <h3 class="product-name">Мексиканская шаверма</h3>
+            <p class="product-description">Куриное филе, огурец, томат, капуста китайская...</p>
+            <div class="product-price">от 290 Р</div>
+        </div>
+
+        <!-- Мясная шаверма (Хит) -->
+        <div class="product-card" data-name="Мясная шаверма" data-price="330" data-image="https://psv4.userapi.com/s/v1/d/c6Dr3xmjHPTZ_soBRvTwraVAPo1nRwmlg6tAhVMc732bZEArKytGnMkFTiegO5Ssz6-xsZc_IHHu_u4nfcBvjdmd6LgSKEc7t-siU---BM7c2To94jJvzw/myaso.jpg" data-description="Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соус красный аджика, соус белый, лаваш бездрожжевой." data-weight="330 г">
+            <span class="product-tag">ХИТ</span>
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/c6Dr3xmjHPTZ_soBRvTwraVAPo1nRwmlg6tAhVMc732bZEArKytGnMkFTiegO5Ssz6-xsZc_IHHu_u4nfcBvjdmd6LgSKEc7t-siU---BM7c2To94jJvzw/myaso.jpg" alt="Мясная шаверма">
+            </div>
+            <h3 class="product-name">Мясная шаверма</h3>
+            <p class="product-description">Куриное филе, корнишоны, морковь по-корейски...</p>
+            <div class="product-price">от 330 Р</div>
+        </div>
+
+        <!-- Столько сыра шаверма -->
+        <div class="product-card" data-name="Столько сыра шаверма" data-price="340" data-image="https://psv4.userapi.com/s/v1/d/D3r9Ch4FLLr8k7wZl1b6UGyqsMa0-MAg0TKDL4EZd7dCldT-kzRevehFRe5BwptXsi7Dl1AquMpWdWz4u0iHJAXj2Xt9WweTmGxilP-fYA9gHatP_hMCIw/syr.jpg" data-description="Куриное филе, томат, капуста китайская, лук красный, соус белый, сыр моцарелла, лаваш бездрожжевой." data-weight="320 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/D3r9Ch4FLLr8k7wZl1b6UGyqsMa0-MAg0TKDL4EZd7dCldT-kzRevehFRe5BwptXsi7Dl1AquMpWdWz4u0iHJAXj2Xt9WweTmGxilP-fYA9gHatP_hMCIw/syr.jpg" alt="Столько сыра шаверма">
+            </div>
+            <h3 class="product-name">Столько сыра шаверма</h3>
+            <p class="product-description">Куриное филе, томат, капуста китайская...</p>
+            <div class="product-price">от 340 Р</div>
+        </div>
+
+        <!-- Жнец шаверма -->
+        <div class="product-card" data-name="Жнец шаверма" data-price="370" data-image="https://psv4.userapi.com/s/v1/d/pBUEbsrxnTNkmNYbD0khMK8-AWncIrGSZckLHdgmBj95ftL_n2n8_otbH_fY71vZNOR0Po2THeN5w3eJU9HkFxXDgdatMZhfGuFeQp8rBDXEPSuYIk6TNw/zhnets.jpg" data-description="Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус Барбекю." data-weight="350 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/pBUEbsrxnTNkmNYbD0khMK8-AWncIrGSZckLHdgmBj95ftL_n2n8_otbH_fY71vZNOR0Po2THeN5w3eJU9HkFxXDgdatMZhfGuFeQp8rBDXEPSuYIk6TNw/zhnets.jpg" alt="Жнец шаверма">
+            </div>
+            <h3 class="product-name">Жнец шаверма</h3>
+            <p class="product-description">Куриное филе, бекон, картофель фри...</p>
+            <div class="product-price">от 370 Р</div>
+        </div>
     </div>
-</section>
-</main>
+
+    <h2 class="section-title" id="author-shawarma">Шаверма Авторская</h2>
+    <div class="products-grid">
+        <!-- Оригинальная -->
+        <div class="product-card" data-name="Оригинальная шаверма" data-price="290" data-image="https://psv4.userapi.com/s/v1/d/tXSwKXqaBZDEoXxL7Hbo26ubroBIyeLCFmuqVCssvYTzTdguX4xckXCOfhShjQyhxVuY3j2oRxDJ0o2JygYng1tb7DSoe1NjMw-QHciwHYsPQO_k1RAzpw/orig.jpg" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/tXSwKXqaBZDEoXxL7Hbo26ubroBIyeLCFmuqVCssvYTzTdguX4xckXCOfhShjQyhxVuY3j2oRxDJ0o2JygYng1tb7DSoe1NjMw-QHciwHYsPQO_k1RAzpw/orig.jpg" alt="Оригинальная шаверма">
+            </div>
+            <h3 class="product-name">Оригинальная шаверма</h3>
+            <p class="product-description">Куриное филе, огурец, томат, капуста китайская...</p>
+            <div class="product-price">от 290 Р</div>
+        </div>
+
+        <!-- Очень оригинальная -->
+        <div class="product-card" data-name="Очень оригинальная шаверма" data-price="330" data-image="https://sun9-14.userapi.com/impg/jWcqYVtLjmaWEHBUxOa6J8mNnmuDKIQX6fKfVw/55xt3-6zspI.jpg?size=1024x1024&quality=95&sign=69c21579789d2529732357bd32accf2f&type=album" data-description="Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соус красный аджика, соус белый, лаваш бездрожжевой." data-weight="330 г">
+            <span class="product-tag">ХИТ</span>
+            <div class="product-image-container">
+                <img src="https://sun9-14.userapi.com/impg/jWcqYVtLjmaWEHBUxOa6J8mNnmuDKIQX6fKfVw/55xt3-6zspI.jpg?size=1024x1024&quality=95&sign=69c21579789d2529732357bd32accf2f&type=album" alt="Очень оригинальная шаверма">
+            </div>
+            <h3 class="product-name">Очень оригинальная шаверма</h3>
+            <p class="product-description">Куриное филе, корнишоны, морковь по-корейски...</p>
+            <div class="product-price">от 330 Р</div>
+        </div>
+
+        <!-- Супер оригинальная -->
+        <div class="product-card" data-name="Супер оригинальная шаверма" data-price="340" data-image="https://sun9-70.userapi.com/impg/DTIzcRgdS2dhnQuNAieufRs_pz-T_pD4cMrHPA/OL-3EKa6-mk.jpg?size=1024x1024&quality=95&sign=2389db2157f3b189ca7b52626719ecc0&type=album" data-description="Куриное филе, томат, капуста китайская, лук красный, соус белый, сыр моцарелла, лаваш бездрожжевой." data-weight="320 г">
+            <div class="product-image-container">
+                <img src="https://sun9-70.userapi.com/impg/DTIzcRgdS2dhnQuNAieufRs_pz-T_pD4cMrHPA/OL-3EKa6-mk.jpg?size=1024x1024&quality=95&sign=2389db2157f3b189ca7b52626719ecc0&type=album" alt="Супер оригинальная шаверма">
+            </div>
+            <h3 class="product-name">Супер оригинальная шаверма</h3>
+            <p class="product-description">Куриное филе, томат, капуста китайская...</p>
+            <div class="product-price">от 340 Р</div>
+        </div>
+
+        <!-- Супер пупер оригинальная -->
+        <div class="product-card" data-name="Супер пупер оригинальная шаверма" data-price="370" data-image="https://sun9-72.userapi.com/impg/Q3uDxQvpa0QfozaM6Wk6uue8hyBHvFBxRn1-vQ/lI_jK0zZGLE.jpg?size=1024x1024&quality=95&sign=22f988a374a31e709c8cf88bcbc3fce7&type=album" data-description="Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус Барбекю." data-weight="350 г">
+            <div class="product-image-container">
+                <img src="https://sun9-72.userapi.com/impg/Q3uDxQvpa0QfozaM6Wk6uue8hyBHvFBxRn1-vQ/lI_jK0zZGLE.jpg?size=1024x1024&quality=95&sign=22f988a374a31e709c8cf88bcbc3fce7&type=album" alt="Супер пупер оригинальная шаверма">
+            </div>
+            <h3 class="product-name">Супер пупер оригинальная шаверма</h3>
+            <p class="product-description">Куриное филе, бекон, картофель фри...</p>
+            <div class="product-price">от 370 Р</div>
+        </div>
+    </div>
+	
+    <h2 class="section-title" id="snacks">Закуски</h2>
+    <div class="products-grid">
+        <!-- Картошка фри -->
+        <div class="product-card" data-name="Картошка фри" data-price="290" data-image="https://sun9-51.userapi.com/impg/Opehvs1tcJAtvDckBv04Xb6LaRQw0hgmI-FNGA/-B7yPbvWQAY.jpg?size=1000x666&quality=95&sign=399ffbe24e8a4e2edfd0b86f38b963c1&type=album" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
+            <div class="product-image-container">
+                <img src="https://sun9-51.userapi.com/impg/Opehvs1tcJAtvDckBv04Xb6LaRQw0hgmI-FNGA/-B7yPbvWQAY.jpg?size=1000x666&quality=95&sign=399ffbe24e8a4e2edfd0b86f38b963c1&type=album" alt="Картошка фри">
+            </div>
+            <h3 class="product-name">Картошка фри</h3>
+            <p class="product-description">Куриное филе, огурец, томат, капуста китайская...</p>
+            <div class="product-price">от 290 Р</div>
+        </div>
+        <!-- Сухарь -->
+        <div class="product-card" data-name="Сухарь" data-price="290" data-image="https://psv4.userapi.com/s/v1/d/kfh7AqQDPY1lOPM1kkU87VaTDlXVQXn4sfuqStpmKmzFWCdBYhQ43_oYwR5Y0VHhcgugCCGsumPI_EqgYCr28OmvJ5Xd7i0SBsBAA8GiYg_Dvbvlv_lJAw/sukho.jpg" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/kfh7AqQDPY1lOPM1kkU87VaTDlXVQXn4sfuqStpmKmzFWCdBYhQ43_oYwR5Y0VHhcgugCCGsumPI_EqgYCr28OmvJ5Xd7i0SBsBAA8GiYg_Dvbvlv_lJAw/sukho.jpg" alt="Сухарь">
+            </div>
+            <h3 class="product-name">Сухарь</h3>
+            <p class="product-description">Куриное филе, огурец, томат, капуста китайская...</p>
+            <div class="product-price">от 290 Р</div>
+        </div>
+
+        <!-- Пельмеш -->
+        <div class="product-card" data-name="Пельмеш" data-price="330" data-image="https://psv4.userapi.com/s/v1/d/0UUx0w6ISDjWpagrv_UvkuvlO-23z2VDICStdMwEh4t5TcQocFwxPruI3Dh8f-1Z51rvM8wYssvA995vMX_mxVy4Q-cmXALU6YrF1LaN_z9Oe2_MhoKU7Q/po.jpg" data-description="Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соус красный аджика, соус белый, лаваш бездрожжевой." data-weight="330 г">
+            <span class="product-tag">ХИТ</span>
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/0UUx0w6ISDjWpagrv_UvkuvlO-23z2VDICStdMwEh4t5TcQocFwxPruI3Dh8f-1Z51rvM8wYssvA995vMX_mxVy4Q-cmXALU6YrF1LaN_z9Oe2_MhoKU7Q/po.jpg" alt="Пельмеш">
+            </div>
+            <h3 class="product-name">Пельмеш</h3>
+            <p class="product-description">Куриное филе, корнишоны, морковь по-корейски...</p>
+            <div class="product-price">от 330 Р</div>
+        </div>
+        <!-- Курица гриль -->
+        <div class="product-card" data-name="Курица гриль" data-price="330" data-image="https://sun9-45.userapi.com/impg/bfVNpkaYx9ByQkZh5d3DtslVahYs-C1W3N-aqw/cvXjlY_zmOY.jpg?size=1024x1024&quality=95&sign=d8efb26700ff5b7d4af48c571e19c789&type=album" data-description="Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соус красный аджика, соус белый, лаваш бездрожжевой." data-weight="330 г">
+            <span class="product-tag">ХИТ</span>
+            <div class="product-image-container">
+                <img src="https://sun9-45.userapi.com/impg/bfVNpkaYx9ByQkZh5d3DtslVahYs-C1W3N-aqw/cvXjlY_zmOY.jpg?size=1024x1024&quality=95&sign=d8efb26700ff5b7d4af48c571e19c789&type=album" alt="Курица гриль">
+            </div>
+            <h3 class="product-name">Курица гриль</h3>
+            <p class="product-description">Куриное филе, корнишоны, морковь по-корейски...</p>
+            <div class="product-price">от 330 Р</div>
+        </div>
+    </div>
+    
+    <h2 class="section-title" id="lunches">Ланчи</h2>
+    <div class="products-grid">
+        <!-- Ланч -->
+        <div class="product-card" data-name="Ланч" data-price="290" data-image="https://sun9-74.userapi.com/impg/nPtGxiOWWi4NLykKDlThYK5tLyFox0nyb7SYWg/dU6cM4hdQIU.jpg?size=1024x1024&quality=95&sign=110a2d1b32b579fea31f93a91f689e5f&type=album" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
+            <div class="product-image-container">
+                <img src="https://sun9-74.userapi.com/impg/nPtGxiOWWi4NLykKDlThYK5tLyFox0nyb7SYWg/dU6cM4hdQIU.jpg?size=1024x1024&quality=95&sign=110a2d1b32b579fea31f93a91f689e5f&type=album" alt="Ланч">
+            </div>
+            <h3 class="product-name">Ланч</h3>
+            <p class="product-description">Куриное филе, огурец, томат, капуста китайская...</p>
+            <div class="product-price">от 290 Р</div>
+        </div>
+
+        <!-- Ещё какой-то ланч -->
+        <div class="product-card" data-name="Ещё какой-то ланч" data-price="330" data-image="https://sun9-72.userapi.com/impg/jjmytjUT1uVdijFyfO5H4RVckG3B0sf6LUV-sw/aRnrIGCVX4g.jpg?size=1024x1024&quality=95&sign=915597b438b1a7931e37b1badecdc556&type=album" data-description="Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соус красный аджика, соус белый, лаваш бездрожжевой." data-weight="330 г">
+            <span class="product-tag">ХИТ</span>
+            <div class="product-image-container">
+                <img src="https://sun9-72.userapi.com/impg/jjmytjUT1uVdijFyfO5H4RVckG3B0sf6LUV-sw/aRnrIGCVX4g.jpg?size=1024x1024&quality=95&sign=915597b438b1a7931e37b1badecdc556&type=album" alt="Ещё какой-то ланч">
+            </div>
+            <h3 class="product-name">Ещё какой-то ланч</h3>
+            <p class="product-description">Куриное филе, корнишоны, морковь по-корейски...</p>
+            <div class="product-price">от 330 Р</div>
+        </div>
+
+        <!-- Очередной ланч -->
+        <div class="product-card" data-name="Очередной ланч" data-price="340" data-image="https://sun9-10.userapi.com/impg/v5RjOmiskwRrh24ax44D3gmwzQsfOfuYKb1t3A/ehzmnwxiAY4.jpg?size=1024x1024&quality=95&sign=7f81581d4b7be767825b3d026169f024&type=album" data-description="Куриное филе, томат, капуста китайская, лук красный, соус белый, сыр моцарелла, лаваш бездрожжевой." data-weight="320 г">
+            <div class="product-image-container">
+                <img src="https://sun9-10.userapi.com/impg/v5RjOmiskwRrh24ax44D3gmwzQsfOfuYKb1t3A/ehzmnwxiAY4.jpg?size=1024x1024&quality=95&sign=7f81581d4b7be767825b3d026169f024&type=album" alt="Очередной ланч">
+            </div>
+            <h3 class="product-name">Очередной ланч</h3>
+            <p class="product-description">Куриное филе, томат, капуста китайская...</p>
+            <div class="product-price">от 340 Р</div>
+        </div>
+    </div>
+
+    <h2 class="section-title" id="kids">Детское меню</h2>
+    <div class="products-grid">
+        <!-- Долька -->
+        <div class="product-card" data-name="Долька" data-price="290" data-image="https://psv4.userapi.com/s/v1/d/k6v0lf0ZF__New5cGxIyvwKcb-08HQFzbIq9h4lkjQ-xxuI3ZIJZlQCL3uv0rCfLf-KbA1bzYCMraPeCTJTKFxtZwYF8ImaIB0HJo43PnCYWpjgKanvtBQ/dolka.jpg" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/k6v0lf0ZF__New5cGxIyvwKcb-08HQFzbIq9h4lkjQ-xxuI3ZIJZlQCL3uv0rCfLf-KbA1bzYCMraPeCTJTKFxtZwYF8ImaIB0HJo43PnCYWpjgKanvtBQ/dolka.jpg" alt="Долька">
+            </div>
+            <h3 class="product-name">Долька</h3>
+            <p class="product-description">Куриное филе, огурец, томат, капуста китайская...</p>
+            <div class="product-price">от 290 Р</div>
+        </div>
+
+        <!-- Сок -->
+        <div class="product-card" data-name="Сок" data-price="330" data-image="https://psv4.userapi.com/s/v1/d/yKvVn61vDvVFxeGny4E57qAi1x9jXvnGB6lOfWg6Z8ve_lf7prlpISno3T1ba03B4EiY9a76R8QfUs2N857_b8rFfnhRnIYygmICrBCmFAygjFrVJKk2Hg/sok.jpg" data-description="Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соус красный аджика, соус белый, лаваш бездрожжевой." data-weight="330 г">
+            <span class="product-tag">ХИТ</span>
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/yKvVn61vDvVFxeGny4E57qAi1x9jXvnGB6lOfWg6Z8ve_lf7prlpISno3T1ba03B4EiY9a76R8QfUs2N857_b8rFfnhRnIYygmICrBCmFAygjFrVJKk2Hg/sok.jpg" alt="Сок">
+            </div>
+            <h3 class="product-name">Сок</h3>
+            <p class="product-description">Куриное филе, корнишоны, морковь по-корейски...</p>
+            <div class="product-price">от 330 Р</div>
+        </div>
+
+        <!-- Блинчик -->
+        <div class="product-card" data-name="Блинчик" data-price="340" data-image="https://psv4.userapi.com/s/v1/d/qXb_Z_urbT6Sontdpn9cqk6HCLYEWrz_rmj92ZtweVM-sQ8MESXBXPOAqKTw9xZT7_nDHhKFYtZ8mbDi8s4uz_aBoZYRoEd5hddpgq9OMFLHl9PffWr33g/blin.jpg" data-description="Куриное филе, томат, капуста китайская, лук красный, соус белый, сыр моцарелла, лаваш бездрожжевой." data-weight="320 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/qXb_Z_urbT6Sontdpn9cqk6HCLYEWrz_rmj92ZtweVM-sQ8MESXBXPOAqKTw9xZT7_nDHhKFYtZ8mbDi8s4uz_aBoZYRoEd5hddpgq9OMFLHl9PffWr33g/blin.jpg" alt="Блинчик">
+            </div>
+            <h3 class="product-name">Блинчик</h3>
+            <p class="product-description">Куриное филе, томат, капуста китайская...</p>
+            <div class="product-price">от 340 Р</div>
+        </div>
+
+        <!-- Конфетка -->
+        <div class="product-card" data-name="Конфетка" data-price="370" data-image="https://psv4.userapi.com/s/v1/d/yw8lv8vK7R4DE8a_DcPUA7I-nAikIXkLqPPImYkph0EWOLl6q1CGToGDcdUI74YKobgA2KP_6g_Voy25AiVR41n_qmFyn2FbrIdhvqYgwkBC_envZq18Vg/konf.jpg" data-description="Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус Барбекю." data-weight="350 г">
+            <div class="product-image-container">
+                <img src="https://psv4.userapi.com/s/v1/d/yw8lv8vK7R4DE8a_DcPUA7I-nAikIXkLqPPImYkph0EWOLl6q1CGToGDcdUI74YKobgA2KP_6g_Voy25AiVR41n_qmFyn2FbrIdhvqYgwkBC_envZq18Vg/konf.jpg" alt="Конфетка">
+            </div>
+            <h3 class="product-name">Конфетка</h3>
+            <p class="product-description">Куриное филе, бекон, картофель фри...</p>
+            <div class="product-price">от 370 Р</div>
+        </div>
+    </div>
+    
+	
+</div>
+
+<footer>
+    &copy; 2024 ВЛАВАШЕ
+</footer>
+
+<!-- Модальное окно -->
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+        <button class="close-btn" id="modal-close">×</button>
+        <div class="modal-left">
+            <img id="modal-image" src="" alt="Товар">
+        </div>
+        <div class="modal-right">
+            <h2 class="modal-title" id="modal-title"></h2>
+            <div class="modal-weight" id="modal-weight"></div>
+            <div class="modal-description" id="modal-description"></div>
+            <div class="options-title">Опции к шаверме</div>
+            <div class="options-subtitle">Можно выбрать еще <span id="options-count">7</span></div>
+            <div class="options-grid">
+                <div class="option-item">без моркови</div>
+                <div class="option-item">без салата</div>
+                <div class="option-item">без помидоров</div>
+                <div class="option-item">без огурцов</div>
+                <div class="option-item">без соуса</div>
+                <div class="option-item">без картофеля</div>
+                <div class="option-item">без лука</div>
+            </div>
+            <div class="bottom-panel">
+                <div class="quantity-container">
+                    <button id="minus-btn">-</button>
+                    <span id="quantity">1</span>
+                    <button id="plus-btn">+</button>
+                </div>
+                <div class="price-add-container">
+                    <span id="modal-price"></span> Р
+                    <button class="add-to-cart-btn" id="add-to-cart-btn">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Выбор города
+    const citySelect = document.getElementById('city-select');
+    const selectedCitySpan = document.getElementById('selected-city');
+    citySelect.addEventListener('change', () => {
+        selectedCitySpan.textContent = citySelect.value;
+    });
+
+    // Поиск (пока просто выводим в консоль)
+    const searchBtn = document.getElementById('search-btn');
+    const searchInput = document.getElementById('search-input');
+    searchBtn.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        if(query){
+            console.log("Поиск по запросу:", query);
+        }
+    });
+
+    // Слайдер сезонных напитков
+    const sliderTrack = document.getElementById('slider-track');
+    const prevSlideBtn = document.getElementById('prev-slide');
+    const nextSlideBtn = document.getElementById('next-slide');
+    let slideIndex = 0;
+    const slides = sliderTrack.querySelectorAll('.slide');
+    const visibleCount = 3;
+    const slideWidth = slides[0].offsetWidth + 20;
+
+    prevSlideBtn.addEventListener('click', () => {
+        if (slideIndex > 0) {
+            slideIndex--;
+            sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+        }
+    });
+
+    nextSlideBtn.addEventListener('click', () => {
+        if (slideIndex < slides.length - visibleCount) {
+            slideIndex++;
+            sliderTrack.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+        }
+    });
+
+    // Корзина
+    const cartInfo = document.getElementById('cart-info');
+    const cartDropdown = document.getElementById('cart-dropdown');
+    const cartCount = document.getElementById('cart-count');
+    let cartItems = [];
+
+    function updateCartUI() {
+        cartDropdown.innerHTML = '';
+        if (cartItems.length === 0) {
+            cartCount.textContent = '(0)';
+            const emptyDiv = document.createElement('div');
+            emptyDiv.classList.add('empty-cart');
+            emptyDiv.textContent = 'В корзине пусто';
+            cartDropdown.appendChild(emptyDiv);
+        } else {
+            cartCount.textContent = `(${cartItems.length})`;
+            cartItems.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = `
+                    <span>${item.name}</span>
+                    <button data-index="${index}">Удалить</button>
+                `;
+                cartDropdown.appendChild(itemDiv);
+            });
+        }
+    }
+
+    cartDropdown.addEventListener('click', (e) => {
+        if (e.target.tagName.toLowerCase() === 'button') {
+            const idx = e.target.getAttribute('data-index');
+            cartItems.splice(idx, 1);
+            updateCartUI();
+        }
+    });
+
+    cartInfo.addEventListener('click', (e) => {
+        if (cartItems.length > 0) {
+            alert('Страница корзины: Здесь будут товары и кнопка "Оформить заказ"');
+        }
+    });
+
+    updateCartUI();
 
 
+    // Модальное окно при клике на карточку
+    const productCards = document.querySelectorAll('.product-card');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modal = document.getElementById('modal');
+    const modalClose = document.getElementById('modal-close');
+    const modalImage = document.getElementById('modal-image');
+    const modalTitle = document.getElementById('modal-title');
+    const modalWeight = document.getElementById('modal-weight');
+    const modalDescription = document.getElementById('modal-description');
+    const modalPrice = document.getElementById('modal-price');
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    const minusBtn = document.getElementById('minus-btn');
+    const plusBtn = document.getElementById('plus-btn');
+    const quantitySpan = document.getElementById('quantity');
+
+    let currentProduct = null;
+    let quantity = 1;
+
+    productCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const name = card.getAttribute('data-name');
+            const price = card.getAttribute('data-price');
+            const image = card.getAttribute('data-image');
+            const description = card.getAttribute('data-description');
+            const weight = card.getAttribute('data-weight');
+
+            currentProduct = { name, price, image, description, weight };
+            quantity = 1;
+            quantitySpan.textContent = quantity;
+
+            modalImage.src = image;
+            modalTitle.textContent = name;
+            modalWeight.textContent = weight;
+            modalDescription.textContent = description;
+            modalPrice.textContent = price;
+
+            modalOverlay.style.display = 'flex';
+        });
+    });
+
+    modalClose.addEventListener('click', () => {
+        modalOverlay.style.display = 'none';
+    });
+
+    minusBtn.addEventListener('click', () => {
+        if (quantity > 1) {
+            quantity--;
+            quantitySpan.textContent = quantity;
+        }
+    });
+
+    plusBtn.addEventListener('click', () => {
+        quantity++;
+        quantitySpan.textContent = quantity;
+    });
+
+    addToCartBtn.addEventListener('click', () => {
+        if (currentProduct) {
+            for (let i=0; i<quantity; i++) {
+                cartItems.push({name: currentProduct.name, price: currentProduct.price});
+            }
+            updateCartUI();
+            modalOverlay.style.display = 'none';
+        }
+    });
+
+    // Закрытие модалки по клику вне её
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            modalOverlay.style.display = 'none';
+        }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+    });
+</script>
 </body>
 </html>
-
