@@ -110,20 +110,21 @@ nav a:hover::after {
 .header-bottom {
     position: fixed;
     z-index: 1000;
-    top: 45px;
     right: 50px;
 }
 
 .cart-info {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: linear-gradient(to right, rgb(22, 22, 22), grey);
+    width: 40px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    text-align: center;
+    background: linear-gradient(to right, rgb(29, 29, 29), rgb(138, 136, 136));
     color: white;
-    font-size: 15px;
     padding: 10px 20px;
-    border: none;
-    border-radius: 40px;
     position: relative;
     cursor: pointer;
     font-weight: 700;
@@ -136,7 +137,6 @@ nav a:hover::after {
     padding: 10px 20px;
     border-color: #000000;
     border-radius: 5px;
-    cursor: pointer;
     display: none;
     position: absolute;
     right: 0;
@@ -354,7 +354,8 @@ nav a:hover::after {
 
 .product-card {
     padding-top: 4px;
-    background: #e6e6e6;
+    border: 1px solid rgba(190, 190, 190, 0.267);
+    background: #dfdfdf2c;
     border-radius: 8px;
     width: calc((100% - 60px)/4);
     box-sizing: border-box;
