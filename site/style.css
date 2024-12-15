@@ -26,36 +26,6 @@ header {
   }
 }
 
-#search-btn {
-  font-family: 'Montserrat', sans-serif;
-  overflow: hidden;
-  position: relative;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-
-}
-
-#search-btn:after {
-  content: "";
-  display: block;
-  width: 30px;
-  height: 200px;
-  margin-left: 60px;
-  background: #fff;
-  opacity: 0.5;
-  position: absolute;
-  left: -40px;
-  top: -100px;
-  z-index: 1;
-  transform: rotate(45deg);
-  transition: all 0.1s;
-  animation-name: slideme;
-  animation-duration: 3s;
-  animation-delay: 0.05s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
 
 .header-top {
     display: flex;
@@ -135,33 +105,7 @@ nav a::after { /* Псевдоэлемент для подчеркивания *
 nav a:hover::after {
     width: 100%;
 }
-.search-container {
-  position: relative;
-  display: inline-block;
-}
 
-.search-input {
-  border: 2px solid transparent;
-  border-radius: 20px;
-  padding: 8px 12px;
-  transition: border-color 0.3s ease;
-  outline: none;
-  border-color: black;
-}
-
-.search-input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
-}
-
-.search-input:focus + .search-icon {
-  color: #007bff;
-}
-
-.search-container input {
-    padding: 5px;
-    font-size: 14px;
-}
 
 .cart-info {
     position: relative;
