@@ -25,6 +25,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
 
     НИКИТА:
     3. Сделать кликабельными добавки к блюдам 
+    9. Подвигать текст оглавления так, чтобы он был в одну ширину с контентом
 
 !-->
 <!DOCTYPE html>
@@ -108,33 +109,51 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
         <h2 class="section-title" id="seasonal-drinks">Сезонные напитки</h2>
         <div class="slider">
             <div class="slider-track" id="slider-track">
-                <div class="slide">
+                <!-- Латте карамельный апельсин -->
+                <div class="slide product-card"
+                     data-name="Латте карамельный апельсин"
+                     data-id="latte_orange"
+                     data-price="250"
+                     data-image="https://sun9-51.userapi.com/impg/ddEsaU4AyByNBshPXMFz_sn1omzlk2-tabyKPg/l2OVX4bo-cA.jpg?size=1024x1024&quality=95&sign=36f744d4bbcbf6aad6e5eefad8226c97&type=album"
+                     data-description="Кофе с насыщенным карамельным вкусом и легким апельсиновым послевкусием."
+                     data-weight="300 мл">
                     <img src="https://sun9-51.userapi.com/impg/ddEsaU4AyByNBshPXMFz_sn1omzlk2-tabyKPg/l2OVX4bo-cA.jpg?size=1024x1024&quality=95&sign=36f744d4bbcbf6aad6e5eefad8226c97&type=album" alt="Латте карамельный апельсин">
                     <h3>Латте карамельный апельсин</h3>
-
                 </div>
-                <div class="slide">
+                <!-- Латте пряное печенье -->
+                <div class="slide product-card"
+                     data-name="Латте пряное печенье"
+                     data-price="260"
+                     data-image="https://sun9-57.userapi.com/impg/8fCCMhZOOYJUOf0eIDQxxFcOvZiRoM7Q42EOAQ/D7H9bVMEBPM.jpg?size=1024x1024&quality=95&sign=c797e25990046c4c5ac7dc5b323ebf63&type=album"
+                     data-description="Ароматный кофе с пряным вкусом печенья."
+                     data-weight="350 мл">
                     <img src="https://sun9-57.userapi.com/impg/8fCCMhZOOYJUOf0eIDQxxFcOvZiRoM7Q42EOAQ/D7H9bVMEBPM.jpg?size=1024x1024&quality=95&sign=c797e25990046c4c5ac7dc5b323ebf63&type=album" alt="Латте пряное печенье">
                     <h3>Латте пряное печенье</h3>
                 </div>
-                <div class="slide">
+                <!-- Латте имбирный пряник -->
+                <div class="slide product-card"
+                     data-name="Латте имбирный пряник"
+                     data-price="270"
+                     data-image="https://sun9-24.userapi.com/impg/zhhB9aL1ac_4oex9GONrbafUat6zh_mFY59OHg/Wj_0NUcUvkg.jpg?size=1024x1024&quality=95&sign=82489ae0e94fc60741dda188a63ddf71&type=album"
+                     data-description="Классический латте с насыщенным вкусом имбирного пряника."
+                     data-weight="350 мл">
                     <img src="https://sun9-24.userapi.com/impg/zhhB9aL1ac_4oex9GONrbafUat6zh_mFY59OHg/Wj_0NUcUvkg.jpg?size=1024x1024&quality=95&sign=82489ae0e94fc60741dda188a63ddf71&type=album" alt="Латте имбирный пряник">
                     <h3>Латте имбирный пряник</h3>
                 </div>
-                <div class="slide">
-                    <img src="https://sun9-80.userapi.com/impg/gYIpEP2iAQS2dk3Z5BCxMh6Xbl6ia7ZNu1KI9g/96urzd318yA.jpg?size=800x800&quality=95&sign=629a93a0949bf1c1765d31c9cd383287&type=album" alt="Латте ёлочка">
-                    <h3>Латте ёлочка</h3>
-                </div>
-                <div class="slide">
+                <!-- Латте Дед Мороз -->
+                <div class="slide product-card"
+                     data-name="Латте Дед Мороз"
+                     data-price="280"
+                     data-image="https://sun9-73.userapi.com/impg/xBB2pr0dFUVtOakKEDqk2USKkNS5vH2gO5V1GQ/hL7dmbeuRpE.jpg?size=1024x1024&quality=95&sign=7f0c3689b005f1010bdc2d505be3a7fe&type=album"
+                     data-description="Кофе с ванильным сиропом и корицей."
+                     data-weight="300 мл">
                     <img src="https://sun9-73.userapi.com/impg/xBB2pr0dFUVtOakKEDqk2USKkNS5vH2gO5V1GQ/hL7dmbeuRpE.jpg?size=1024x1024&quality=95&sign=7f0c3689b005f1010bdc2d505be3a7fe&type=album" alt="Латте Дед Мороз">
                     <h3>Латте Дед Мороз</h3>
                 </div>
-                <div class="slide">
-                    <img src="https://psv4.userapi.com/s/v1/d/WgY04VMxBAIGGEi5SwVziRV6tAelS0Z5e0urCJ-pLhIrIYMIqKVlxD5eGX3cmyzKVtlRCOURH7NQAPIpdrBQ9D5NuAghHErQV95vCYE_aFXdV3x83Hlk6Q/sosulich.jpg" alt="Латте сосулька">
-                    <h3>Латте сосулька</h3>
-                </div>
             </div>
         </div>
+    </section>
+
 <div class="slider-controls">
     <div id="prev-slide" class="arrow-6">
         <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -171,7 +190,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Классическая шаверма</h3>
             <p class="product-description">Куриное филе, огурец, томат, капуста китайская...</p>
-            <div class="product-price">от 290 Р</div>
+            <div class="product-price">от 290 ₽</div>
         </div>
 
         <!-- Фирменная шаверма (Хит) -->
@@ -182,7 +201,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Фирменная шаверма</h3>
             <p class="product-description">Куриное филе, корнишоны, морковь по-корейски...</p>
-            <div class="product-price">от 330 Р</div>
+            <div class="product-price">от 330 ₽</div>
         </div>
 
         <!-- Моцарелла шаверма -->
@@ -192,7 +211,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Моцарелла шаверма</h3>
             <p class="product-description">Куриное филе, томат, капуста китайская...</p>
-            <div class="product-price">от 340 Р</div>
+            <div class="product-price">от 340 ₽</div>
         </div>
 
         <!-- Барбекю шаверма -->
@@ -202,7 +221,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Барбекю шаверма</h3>
             <p class="product-description">Куриное филе, бекон, картофель фри...</p>
-            <div class="product-price">от 370 Р</div>
+            <div class="product-price">от 370 ₽</div>
         </div>
         <!-- Мексиканская шаверма -->
         <div class="product-card" data-id="mexican_shaurma" data-name="Мексиканская шаверма" data-price="290" data-image="https://psv4.userapi.com/s/v1/d/IgmfSVKhtmJe-6i76cyu74XeavdyfUvSUeQi_cNPGpIVHwRM6ubTvuBUlgAzcIDYw8MZTHNCx8C4vyydUdVsYPQvzMFGC63rb8yiblGNxYymFr-GcQY7Ww/mexika.jpg" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
@@ -211,7 +230,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Мексиканская шаверма</h3>
             <p class="product-description">Куриное филе, перец халапеньо, кукуруза...</p>
-            <div class="product-price">от 290 Р</div>
+            <div class="product-price">от 290 ₽</div>
         </div>
 
         <!-- Мясная шаверма (Хит) -->
@@ -222,7 +241,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Мясная шаверма</h3>
             <p class="product-description">Говяжий стейк, грибы, соус терияки...</p>
-            <div class="product-price">от 330 Р</div>
+            <div class="product-price">от 330 ₽</div>
         </div>
 
         <!-- Столько сыра шаверма -->
@@ -232,7 +251,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Столько сыра шаверма</h3>
             <p class="product-description">Куриное филе, сыр моцарелла, сыр пармезан...</p>
-            <div class="product-price">от 340 Р</div>
+            <div class="product-price">от 340 ₽</div>
         </div>
 
         <!-- Жнец шаверма -->
@@ -242,7 +261,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Жнец шаверма</h3>
             <p class="product-description">Куриное филе, бекон, картофель фри...</p>
-            <div class="product-price">от 370 Р</div>
+            <div class="product-price">от 370 ₽</div>
         </div>
     </div>
 
@@ -255,7 +274,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Оригинальная шаверма</h3>
             <p class="product-description">Куриное филе на гриле, свежий шпинат, маринованные огурцы...</p>
-            <div class="product-price">от 290 Р</div>
+            <div class="product-price">от 290 ₽</div>
         </div>
 
         <!-- Очень оригинальная -->
@@ -266,7 +285,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Очень оригинальная шаверма</h3>
             <p class="product-description">Индейка, авокадо, жареные баклажаны...</p>
-            <div class="product-price">от 330 Р</div>
+            <div class="product-price">от 330 ₽</div>
         </div>
 
         <!-- Супер оригинальная -->
@@ -276,7 +295,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Супер оригинальная шаверма</h3>
             <p class="product-description">Креветки, ананасы, перец болгарский...</p>
-            <div class="product-price">от 340 Р</div>
+            <div class="product-price">от 340 ₽</div>
         </div>
 
         <!-- Супер пупер оригинальная -->
@@ -286,7 +305,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Супер пупер оригинальная шаверма</h3>
             <p class="product-description">Утиная грудка, апельсины, соус хойсин...</p>
-            <div class="product-price">от 370 Р</div>
+            <div class="product-price">от 370 ₽</div>
         </div>
     </div>
 	
@@ -299,7 +318,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Картошка фри</h3>
             <p class="product-description">Картофель, паприка, чесночный порошок, соль, соус на выбор</p>
-            <div class="product-price">от 290 Р</div>
+            <div class="product-price">от 290 ₽</div>
         </div>
         <!-- Сухарь -->
         <div class="product-card" data-id="suharik" data-name="Сухарь" data-price="290" data-image="https://psv4.userapi.com/s/v1/d/kfh7AqQDPY1lOPM1kkU87VaTDlXVQXn4sfuqStpmKmzFWCdBYhQ43_oYwR5Y0VHhcgugCCGsumPI_EqgYCr28OmvJ5Xd7i0SBsBAA8GiYg_Dvbvlv_lJAw/sukho.jpg" data-description="Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой." data-weight="300 г">
@@ -308,7 +327,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Сухарь</h3>
             <p class="product-description">Пшеничный хлеб, оливковое масло, чеснок...</p>
-            <div class="product-price">от 290 Р</div>
+            <div class="product-price">от 290 ₽</div>
         </div>
 
         <!-- Пельмеш -->
@@ -319,7 +338,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Пельмеш</h3>
             <p class="product-description">Тесто, свинина, говядина, лук...</p>
-            <div class="product-price">от 330 Р</div>
+            <div class="product-price">от 330 ₽</div>
         </div>
         <!-- Курица гриль -->
         <div class="product-card" data-id="kuritsa_grill" data-name="Курица гриль" data-price="330" data-image="https://sun9-45.userapi.com/impg/bfVNpkaYx9ByQkZh5d3DtslVahYs-C1W3N-aqw/cvXjlY_zmOY.jpg?size=1024x1024&quality=95&sign=d8efb26700ff5b7d4af48c571e19c789&type=album" data-description="Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соус красный аджика, соус белый, лаваш бездрожжевой." data-weight="330 г">
@@ -329,7 +348,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Курица гриль</h3>
             <p class="product-description">Куриное филе, смесь специй для гриля, чеснок...</p>
-            <div class="product-price">от 330 Р</div>
+            <div class="product-price">от 330 ₽</div>
         </div>
     </div>
     
@@ -342,7 +361,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Ланч</h3>
             <p class="product-description">Куриное филе, картофельное пюре, брокколи...</p>
-            <div class="product-price">от 290 Р</div>
+            <div class="product-price">от 290 ₽</div>
         </div>
 
         <!-- Ещё какой-то ланч -->
@@ -353,7 +372,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Ещё какой-то ланч</h3>
             <p class="product-description">Говяжий стейк, рис басмати, запечённые цукини...</p>
-            <div class="product-price">от 330 Р</div>
+            <div class="product-price">от 330 ₽</div>
         </div>
 
         <!-- Очередной ланч -->
@@ -363,7 +382,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Очередной ланч</h3>
             <p class="product-description">Лосось на гриле, булгур, шпинат...</p>
-            <div class="product-price">от 340 Р</div>
+            <div class="product-price">от 340 ₽</div>
         </div>
     </div>
 
@@ -376,7 +395,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Долька</h3>
             <p class="product-description">Сочные яблочные дольки.</p>
-            <div class="product-price">от 290 Р</div>
+            <div class="product-price">от 290 ₽</div>
         </div>
 
         <!-- Сок -->
@@ -387,7 +406,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Сок</h3>
             <p class="product-description">Свежевыжатый апельсиновый сок.</p>
-            <div class="product-price">от 330 Р</div>
+            <div class="product-price">от 330 ₽</div>
         </div>
 
         <!-- Блинчик -->
@@ -397,7 +416,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Блинчик</h3>
             <p class="product-description">Блины с медом и фруктами.</p>
-            <div class="product-price">от 340 Р</div>
+            <div class="product-price">от 340 ₽</div>
         </div>
 
         <!-- Конфетка -->
@@ -407,7 +426,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             </div>
             <h3 class="product-name">Конфетка</h3>
             <p class="product-description">Шоколадная конфета с ярким драже.</p>
-            <div class="product-price">от 370 Р</div>
+            <div class="product-price">от 370 ₽</div>
         </div>
     </div>
     
@@ -472,13 +491,13 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
             <div class="options-title">Опции к шаверме</div>
             <div class="options-subtitle">Можно выбрать еще <span id="options-count">7</span></div>
             <div class="options-grid">
-                <div class="option-item">без моркови</div>
-                <div class="option-item">без салата</div>
-                <div class="option-item">без помидоров</div>
-                <div class="option-item">без огурцов</div>
-                <div class="option-item">без соуса</div>
-                <div class="option-item">без картофеля</div>
-                <div class="option-item">без лука</div>
+                <div class="option-item" data-option="without-carrot">без моркови</div>
+                <div class="option-item" data-option="without-salad">без салата</div>
+                <div class="option-item" data-option="without-tomato">без помидоров</div>
+                <div class="option-item" data-option="without-cucumber">без огурцов</div>
+                <div class="option-item" data-option="without-sauce">без соуса</div>
+                <div class="option-item" data-option="without-potato">без картофеля</div>
+                <div class="option-item" data-option="without-onion">без лука</div>
             </div>
 						<div class="modal-nutrition">
     <h4>БЖУ (на 100 г):</h4>
@@ -493,12 +512,45 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
                     <button id="plus-btn">+</button>
                 </div>
                 <div class="price-add-container">
-                    <span id="modal-price"></span> Р
+                    <span id="modal-price"></span> ₽
                     <button class="add-to-cart-btn" id="add-to-cart-btn">Добавить</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Модальное окно для остальных товаров -->
+<div class="modal-overlay" id="general-modal-overlay" style="display: none;">
+    <div class="modal" id="general-modal">
+        <button class="close-btn" id="general-modal-close">×</button>
+        <div class="modal-left">
+            <img id="general-modal-image" src="" alt="Товар">
+        </div>
+        <div class="modal-right">
+            <h2 class="modal-title" id="general-modal-title"></h2>
+            <div class="modal-weight" id="general-modal-weight"></div>
+            <div class="modal-description" id="general-modal-description"></div>
+            <div class="modal-nutrition">
+                <h4>БЖУ (на 100 г):</h4>
+                <p><strong>Белки:</strong> <span id="general-modal-proteins">-</span> г</p>
+                <p><strong>Жиры:</strong> <span id="general-modal-fats">-</span> г</p>
+                <p><strong>Углеводы:</strong> <span id="general-modal-carbs">-</span> г</p>
+            </div>
+            <div class="bottom-panel">
+                <div class="quantity-container">
+                    <button id="general-minus-btn">-</button>
+                    <span id="general-quantity">1</span>
+                    <button id="general-plus-btn">+</button>
+                </div>
+                <div class="price-add-container">
+                    <span id="general-modal-price"></span> Р
+                    <button class="add-to-cart-btn" id="general-add-to-cart-btn">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

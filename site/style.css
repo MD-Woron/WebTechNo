@@ -228,7 +228,6 @@ nav a:hover::after {
     font-size: 48px;
     font-weight: 700;
     text-transform: uppercase;
-	margin-left: -30px; /* Сдвиг влево */
 }
 
 /* Слайдер сезонных напитков */
@@ -259,28 +258,37 @@ nav a:hover::after {
 }
 
 .slide {
-    min-width: 250px;
+    min-width: 250px; /* Фиксированная ширина карточки */
+    height: 300px; /* Фиксированная высота карточки */
     margin-right: 20px;
     text-align: center;
-}
-.slide:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s; /* Анимация при наведении */
 }
 
 .slide img {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
+    width: 100%;
+    height: 200px; /* Фиксированная высота изображения */
+    object-fit: cover; /* Обеспечивает сохранение пропорций */
     border-radius: 8px;
     display: block;
-    margin: 0 auto;
 }
 
 .slide h3 {
     font-size: 16px;
-    margin: 10px 0;
-    font-weight: 400;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #333;
+    text-align: center;
 }
+
+.slide:hover {
+    transform: scale(1.05); /* Увеличение при наведении */
+}
+
 
 
 .slider-controls {
@@ -546,6 +554,12 @@ footer {
     text-align:center;
     cursor:pointer;
     flex:1 1 calc(33.33% - 20px);
+    transition: background 0.3s, color 0.3s;
+}
+
+.option-item.active {
+    background: #d9f2d9; /* Цвет активной опции */
+    color: #007b00; /* Цвет текста активной опции */
 }
 
 .bottom-panel {
@@ -662,11 +676,67 @@ footer {
     margin: 5px 0;
 }
 
-.section-title {
-    font-size: 24px;
-    margin: 20px auto; /* Отцентрируйте заголовок */
+
+#coffee-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#coffee-modal {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 20px;
+}
+
+#coffee-modal .modal-left img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#coffee-modal .modal-right {
+    flex: 1;
+}
+
+#coffee-modal .bottom-panel {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#coffee-modal .bottom-panel .quantity-container button {
+    width: 30px;
+    height: 30px;
+    background: #eee;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
     font-weight: 700;
-    text-transform: uppercase;
-    text-align: center; /* Центрирование текста */
+    border-radius: 4px;
+}
+
+#coffee-modal .bottom-panel .price-add-container button {
+    background: #f00;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
 }
 

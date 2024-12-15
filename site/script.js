@@ -122,27 +122,6 @@ const quantitySpan = document.getElementById('quantity');
 let currentProduct = null;
 let quantity = 1;
 
-productCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const name = card.getAttribute('data-name');
-        const price = card.getAttribute('data-price');
-        const image = card.getAttribute('data-image');
-        const description = card.getAttribute('data-description');
-        const weight = card.getAttribute('data-weight');
-
-        currentProduct = { name, price, image, description, weight };
-        quantity = 1;
-        quantitySpan.textContent = quantity;
-
-        modalImage.src = image;
-        modalTitle.textContent = name;
-        modalWeight.textContent = weight;
-        modalDescription.textContent = description;
-        modalPrice.textContent = price;
-
-        modalOverlay.style.display = 'flex';
-    });
-});
 
 modalClose.addEventListener('click', () => {
     modalOverlay.style.display = 'none';
@@ -190,12 +169,47 @@ anchor.addEventListener('click', function (e) {
 //БЖУ
 
 const productsData = {
-	    // Основное меню (Шаверма)
+    "latte_caramel_orange": {
+        name: "Латте Карамельный Апельсин",
+        weight: "250 мл",
+        description: "Нежный латте с добавлением карамельного и апельсинового сиропов, создающий тёплый и сладкий вкус с лёгкой цитрусовой ноткой.",
+        price: "270",
+        proteins: 4,
+        fats: 5,
+        carbs: 16
+    },
+    "latte_spicy_cookie": {
+        name: "Латте Пряное Печенье",
+        weight: "250 мл",
+        description: "Ароматный латте с добавлением специй и сиропа с вкусом пряного печенья, создающий уютное настроение.",
+        price: "280",
+        proteins: 4,
+        fats: 6,
+        carbs: 18
+    },
+    "latte_gingerbread": {
+        name: "Латте Имбирный Пряник",
+        weight: "250 мл",
+        description: "Кофейный напиток с добавлением имбирного сиропа и пряностей, напоминающий вкус классического рождественского пряника.",
+        price: "290",
+        proteins: 4,
+        fats: 5,
+        carbs: 17
+    },
+    "latte_santa_claus": {
+        name: "Латте Дед Мороз",
+        weight: "250 мл",
+        description: "Уникальный праздничный латте с добавлением сливочного сиропа, корицы и шоколадного декора, создающий волшебное настроение.",
+        price: "300",
+        proteins: 4,
+        fats: 6,
+        carbs: 19
+    },
     "klassicheskaya_shaurma": {
         name: "Классическая шаверма",
         weight: "300 г",
         description: "Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой.",
-        price: "290 ₽",
+        price: "290 ",
         proteins: 14, // Белки
         fats: 10,     // Жиры
         carbs: 25     // Углеводы
@@ -204,7 +218,7 @@ const productsData = {
         name: "Фирменная шаверма",
         weight: "330 г",
         description: "Куриное филе, корнишоны, морковь по-корейски, томаты, капуста, соусы.",
-        price: "330 ₽",
+        price: "330 ",
         proteins: 15,
         fats: 12,
         carbs: 27
@@ -213,7 +227,7 @@ const productsData = {
         name: "Моцарелла шаверма",
         weight: "320 г",
         description: "Куриное филе, томат, капуста китайская, лук красный, соус белый, сыр моцарелла, лаваш бездрожжевой.",
-        price: "340 ₽",
+        price: "340 ",
         proteins: 16,
         fats: 14,
         carbs: 22
@@ -222,7 +236,7 @@ const productsData = {
         name: "Барбекю шаверма",
         weight: "350 г",
         description: "Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус Барбекю.",
-        price: "370 ₽",
+        price: "370 ",
         proteins: 17,
         fats: 18,
         carbs: 28
@@ -231,7 +245,7 @@ const productsData = {
         name: "Мексиканская шаверма",
         weight: "300 г",
         description: "Куриное филе, перец халапеньо, кукуруза, соус сальса, томаты, китайская капуста, красный лук, сыр чеддер, бездрожжевой лаваш.",
-        price: "290 ₽",
+        price: "290 ",
         proteins: 14,
         fats: 10,
         carbs: 25
@@ -240,7 +254,7 @@ const productsData = {
         name: "Мясная шаверма",
         weight: "330 г",
         description: "Говяжий стейк, грибы, соус терияки, маринованный огурец, томаты, рукола, белый соус, бездрожжевой лаваш.",
-        price: "330 ₽",
+        price: "330 ",
         proteins: 15,
         fats: 12,
         carbs: 26
@@ -249,7 +263,7 @@ const productsData = {
         name: "Столько сыра шаверма",
         weight: "320 г",
         description: "Куриное филе, сыр моцарелла, сыр пармезан, сыр дорблю, томаты, китайская капуста, сливочный соус, бездрожжевой лаваш.",
-        price: "340 ₽",
+        price: "340 ",
         proteins: 16,
         fats: 14,
         carbs: 22
@@ -258,7 +272,7 @@ const productsData = {
         name: "Жнец шаверма",
         weight: "350 г",
         description: "Куриное филе, бекон, картофель фри, острый соус чили, томаты, лук фри, лист салата, соус ранч, бездрожжевой лаваш.",
-        price: "370 ₽",
+        price: "370 ",
         proteins: 18,
         fats: 19,
         carbs: 29
@@ -268,7 +282,7 @@ const productsData = {
         name: "Оригинальная шаверма",
         weight: "300 г",
         description: "Куриное филе на гриле, свежий шпинат, маринованные огурцы, томаты черри, соус песто, сыр чеддер, бездрожжевой лаваш.",
-        price: "290 ₽",
+        price: "290 ",
         proteins: 14, // Белки
         fats: 10,     // Жиры
         carbs: 25     // Углеводы
@@ -277,7 +291,7 @@ const productsData = {
         name: "Очень оригинальная шаверма",
         weight: "330 г",
         description: "Индейка, авокадо, жареные баклажаны, кинза, томаты, йогуртовый соус с чесноком, бездрожжевой лаваш.",
-        price: "330 ₽",
+        price: "330 ",
         proteins: 15,
         fats: 12,
         carbs: 27
@@ -286,7 +300,7 @@ const productsData = {
         name: "Супер оригинальная шаверма",
         weight: "340 г",
         description: "Креветки, ананасы, перец болгарский, салат айсберг, сливочный сыр, соус терияки, бездрожжевой лаваш.",
-        price: "340 ₽",
+        price: "340 ",
         proteins: 16,
         fats: 13,
         carbs: 23
@@ -295,7 +309,7 @@ const productsData = {
         name: "Супер пупер оригинальная шаверма",
         weight: "370 г",
         description: "Утиная грудка, апельсины, соус хойсин, листья салата, маринованный лук, сыр фета, бездрожжевой лаваш.",
-        price: "370 ₽",
+        price: "370 ",
         proteins: 17,
         fats: 18,
         carbs: 29
@@ -306,7 +320,7 @@ const productsData = {
         name: "Картошка фри",
         weight: "150 г",
         description: "Картофель, паприка, чесночный порошок, соль, соус на выбор",
-        price: "290 ₽",
+        price: "290 ",
         proteins: 3,
         fats: 9,
         carbs: 37
@@ -315,7 +329,7 @@ const productsData = {
         name: "Сухарь",
         weight: "200 г",
         description: "Пшеничный хлеб, оливковое масло, чеснок, сушёные травы, соль, сыр пармезан.",
-        price: "290 ₽",
+        price: "290 ",
         proteins: 6,
         fats: 10,
         carbs: 45
@@ -324,7 +338,7 @@ const productsData = {
         name: "Пельмеш",
         weight: "330 г",
         description: "Тесто, свинина, говядина, лук, чеснок, зелень, соль, перец.",
-        price: "330 ₽",
+        price: "330 ",
         proteins: 12,
         fats: 15,
         carbs: 30
@@ -333,7 +347,7 @@ const productsData = {
         name: "Курица гриль",
         weight: "350 г",
         description: "Куриное филе, смесь специй для гриля, чеснок, паприка, лимонный сок, оливковое масло, соус тар-тар.",
-        price: "330 ₽",
+        price: "330 ",
         proteins: 25,
         fats: 20,
         carbs: 5
@@ -343,7 +357,7 @@ const productsData = {
         name: "Ланч",
         weight: "400 г",
         description: "Куриное филе, картофельное пюре, брокколи, морковные дольки, сливочный соус, зелень.",
-        price: "290 ₽",
+        price: "290 ",
         proteins: 25,
         fats: 12,
         carbs: 40
@@ -352,7 +366,7 @@ const productsData = {
         name: "Ещё какой-то ланч",
         weight: "450 г",
         description: "Говяжий стейк, рис басмати, запечённые цукини, помидоры черри, соус терияки, кунжут.",
-        price: "330 ₽",
+        price: "330 ",
         proteins: 28,
         fats: 15,
         carbs: 45
@@ -361,7 +375,7 @@ const productsData = {
         name: "Очередной ланч",
         weight: "450 г",
         description: "Лосось на гриле, булгур, шпинат, сливочный соус с укропом, лимонные дольки.",
-        price: "340 ₽",
+        price: "340 ",
         proteins: 26,
         fats: 14,
         carbs: 50
@@ -372,7 +386,7 @@ const productsData = {
         name: "Долька",
         weight: "100 г",
         description: "Сочные яблочные дольки.",
-        price: "290 ₽",
+        price: "290 ",
         proteins: 0.5,
         fats: 0.2,
         carbs: 15
@@ -381,7 +395,7 @@ const productsData = {
         name: "Сок",
         weight: "200 мл",
         description: "Свежевыжатый апельсиновый сок.",
-        price: "330 ₽",
+        price: "330 ",
         proteins: 1,
         fats: 0,
         carbs: 20
@@ -390,7 +404,7 @@ const productsData = {
         name: "Блинчики",
         weight: "300 г",
         description: "Блины с медом и фруктами.",
-        price: "340 ₽",
+        price: "340 ",
         proteins: 8,
         fats: 10,
         carbs: 50
@@ -399,35 +413,142 @@ const productsData = {
         name: "Конфетка",
         weight: "50 г",
         description: "Шоколадная конфета с ярким драже.",
-        price: "370 ₽",
+        price: "370 ",
         proteins: 2,
         fats: 5,
         carbs: 40
     },
 };
 
+const optionsGrid = document.querySelector('.options-grid');
+const selectedOptions = new Set(); // Хранение выбранных опций
 
+optionsGrid.addEventListener('click', (e) => {
+    if (e.target.classList.contains('option-item')) {
+        const option = e.target.getAttribute('data-option');
+        if (selectedOptions.has(option)) {
+            selectedOptions.delete(option); // Удалить из выбранных
+            e.target.classList.remove('active'); // Убрать выделение
+        } else {
+            selectedOptions.add(option); // Добавить в выбранные
+            e.target.classList.add('active'); // Выделить
+        }
+        console.log('Выбранные опции:', Array.from(selectedOptions)); // Для отладки
+    }
+});
 
+// Пример использования выбранных опций при добавлении в корзину
+document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+    const productName = document.getElementById('modal-title').textContent;
+    const productPrice = document.getElementById('modal-price').textContent;
+    const quantity = parseInt(document.getElementById('quantity').textContent);
+
+    const cartItem = {
+        name: productName,
+        price: productPrice,
+        quantity: quantity,
+        options: Array.from(selectedOptions), // Передача выбранных опций
+    };
+
+    console.log('Добавлено в корзину:', cartItem); // Для отладки
+    cartItems.push(cartItem);
+    updateCartUI();
+    modalOverlay.style.display = 'none';
+    selectedOptions.clear(); // Сброс выбранных опций
+    document.querySelectorAll('.option-item.active').forEach(option => option.classList.remove('active'));
+});
 
 productCards.forEach(card => {
     card.addEventListener('click', () => {
-        const productId = card.getAttribute('data-id'); // Получаем ID товара
-        const product = productsData[productId]; // Достаем данные из объекта
-        const productImage = card.getAttribute('data-image'); // Получаем путь к изображению из HTML
+        const productId = card.getAttribute('data-id');
+        const product = productsData[productId];
+        const productImage = card.getAttribute('data-image');
 
         if (product) {
-            modalImage.src = productImage; // Устанавливаем изображение
-            modalTitle.textContent = product.name;
-            modalWeight.textContent = product.weight;
-            modalDescription.textContent = product.description;
-            modalPrice.textContent = product.price;
+            if (productId.includes('shaurma')) {
+                // Модальное окно для шавермы
+                modalImage.src = productImage;
+                modalTitle.textContent = product.name;
+                modalWeight.textContent = product.weight;
+                modalDescription.textContent = product.description;
+                modalPrice.textContent = product.price;
 
-            // Заполняем БЖУ
-            document.getElementById('modal-proteins').textContent = product.proteins;
-            document.getElementById('modal-fats').textContent = product.fats;
-            document.getElementById('modal-carbs').textContent = product.carbs;
+                document.getElementById('modal-proteins').textContent = product.proteins;
+                document.getElementById('modal-fats').textContent = product.fats;
+                document.getElementById('modal-carbs').textContent = product.carbs;
 
-            modalOverlay.style.display = 'flex';
+                modalOverlay.style.display = 'flex';
+            } else {
+                // Модальное окно для других товаров
+                const generalModalOverlay = document.getElementById('general-modal-overlay');
+                const generalModalImage = document.getElementById('general-modal-image');
+                const generalModalTitle = document.getElementById('general-modal-title');
+                const generalModalWeight = document.getElementById('general-modal-weight');
+                const generalModalDescription = document.getElementById('general-modal-description');
+                const generalModalPrice = document.getElementById('general-modal-price');
+                const generalQuantitySpan = document.getElementById('general-quantity');
+
+                generalModalImage.src = productImage;
+                generalModalTitle.textContent = product.name;
+                generalModalWeight.textContent = product.weight;
+                generalModalDescription.textContent = product.description;
+                generalModalPrice.textContent = product.price;
+
+                document.getElementById('general-modal-proteins').textContent = product.proteins;
+                document.getElementById('general-modal-fats').textContent = product.fats;
+                document.getElementById('general-modal-carbs').textContent = product.carbs;
+
+                generalQuantitySpan.textContent = '1';
+
+                generalModalOverlay.style.display = 'flex';
+            }
         }
     });
 });
+
+// Закрытие модального окна для шавермы
+document.getElementById('modal-close').addEventListener('click', () => {
+    modalOverlay.style.display = 'none';
+});
+
+// Закрытие модального окна для остальных товаров
+document.getElementById('general-modal-close').addEventListener('click', () => {
+    document.getElementById('general-modal-overlay').style.display = 'none';
+});
+
+// Закрытие модального окна при клике на фон
+document.getElementById('general-modal-overlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('general-modal-overlay')) {
+        document.getElementById('general-modal-overlay').style.display = 'none';
+    }
+});
+
+// Логика изменения количества товара для универсального модального окна
+document.getElementById('general-minus-btn').addEventListener('click', () => {
+    const quantitySpan = document.getElementById('general-quantity');
+    let quantity = parseInt(quantitySpan.textContent);
+    if (quantity > 1) {
+        quantitySpan.textContent = --quantity;
+    }
+});
+
+document.getElementById('general-plus-btn').addEventListener('click', () => {
+    const quantitySpan = document.getElementById('general-quantity');
+    let quantity = parseInt(quantitySpan.textContent);
+    quantitySpan.textContent = ++quantity;
+});
+
+// Логика добавления в корзину
+document.getElementById('general-add-to-cart-btn').addEventListener('click', () => {
+    const productName = document.getElementById('general-modal-title').textContent;
+    const productPrice = document.getElementById('general-modal-price').textContent;
+    const quantity = parseInt(document.getElementById('general-quantity').textContent);
+
+    for (let i = 0; i < quantity; i++) {
+        cartItems.push({ name: productName, price: productPrice });
+    }
+    updateCartUI();
+    document.getElementById('general-modal-overlay').style.display = 'none';
+});
+
+
