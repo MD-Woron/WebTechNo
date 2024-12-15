@@ -42,6 +42,7 @@ header {
 
 .header-city-info {
     display: flex;
+    margin-right: 340px;
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
@@ -53,7 +54,7 @@ header {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: linear-gradient(to right, black, grey);
+  background: #000;
   color: white;
   font-weight: 500;
   font-size: 15px;
@@ -106,21 +107,42 @@ nav a:hover::after {
     width: 100%;
 }
 
+.header-bottom {
+    position: fixed;
+    z-index: 1000;
+    top: 45px;
+    right: 50px;
+}
 
 .cart-info {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: linear-gradient(to right, rgb(22, 22, 22), grey);
+    color: white;
+    font-size: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 40px;
     position: relative;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .cart-dropdown {
+    color: #000;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-color: #000000;
+    border-radius: 5px;
+    cursor: pointer;
     display: none;
     position: absolute;
     right: 0;
     top: 100%;
     background: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid #575757;   
     z-index: 999;
     width: 200px;
 }
@@ -135,15 +157,17 @@ nav a:hover::after {
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .cart-item button {
-    background: #f00;
+    background: rgb(180, 50, 50);
     color: #fff;
     border: none;
+    border-radius: 5px;
     padding: 2px 5px;
     cursor: pointer;
+    font-weight: 700;
 }
 
 .cart-info:hover .cart-dropdown {
@@ -329,7 +353,8 @@ nav a:hover::after {
 }
 
 .product-card {
-    background: #fff;
+    padding-top: 4px;
+    background: #e6e6e6;
     border-radius: 8px;
     width: calc((100% - 60px)/4);
     box-sizing: border-box;
@@ -340,7 +365,7 @@ nav a:hover::after {
 }
 
 .product-card:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .product-tag {
@@ -539,7 +564,8 @@ footer {
 }
 
 .add-to-cart-btn {
-    background:pink;
+    background:rgb(0, 0, 0);
+    color: white;
     border:none;
     padding:10px 20px;
     font-size:16px;
