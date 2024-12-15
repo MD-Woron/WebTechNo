@@ -6,14 +6,6 @@ citySelect.addEventListener('change', () => {
 });
 
 // Поиск (пока просто выводим в консоль)
-const searchBtn = document.getElementById('search-btn');
-const searchInput = document.getElementById('search-input');
-searchBtn.addEventListener('click', () => {
-    const query = searchInput.value.trim();
-    if(query){
-        console.log("Поиск по запросу:", query);
-    }
-});
 
 //слайдер напитков
 const sliderTrack = document.getElementById('slider-track');
