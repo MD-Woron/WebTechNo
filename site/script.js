@@ -186,3 +186,105 @@ anchor.addEventListener('click', function (e) {
     });
 });
 });
+
+//БЖУ
+
+const productsData = {
+    "klassicheskaya_shaurma": {
+        name: "Классическая шаверма",
+        weight: "300 г",
+        description: "Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой.",
+        price: "290 ₽",
+        proteins: 14, // Белки
+        fats: 10,     // Жиры
+        carbs: 25     // Углеводы
+    },
+    "firmennaya_shaurma": {
+        name: "Фирменная шаверма",
+        weight: "330 г",
+        description: "Куриное филе, корнишоны, морковь по-корейски, томаты, капуста, соусы.",
+        price: "330 ₽",
+        proteins: 15,
+        fats: 12,
+        carbs: 27
+    },
+    "motsarella_shaurma": {
+        name: "Моцарелла шаверма",
+        weight: "320 г",
+        description: "Куриное филе, томат, капуста китайская, лук красный, соус белый, сыр моцарелла, лаваш бездрожжевой.",
+        price: "340 ₽",
+        proteins: 16,
+        fats: 14,
+        carbs: 22
+    },
+    "barbecue_shaurma": {
+        name: "Барбекю шаверма",
+        weight: "350 г",
+        description: "Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус Барбекю.",
+        price: "370 ₽",
+        proteins: 17,
+        fats: 18,
+        carbs: 28
+    },
+    "mexican_shaurma": {
+        name: "Мексиканская шаверма",
+        weight: "300 г",
+        description: "Куриное филе, огурец, томат, капуста китайская, свежая, лук красный, соус белый, лаваш бездрожжевой.",
+        price: "290 ₽",
+        proteins: 14,
+        fats: 10,
+        carbs: 25
+    },
+    "meat_shaurma": {
+        name: "Мясная шаверма",
+        weight: "330 г",
+        description: "Куриное филе, корнишоны маринованные, морковь по-корейски, огурец, томат, капуста китайская, соусы.",
+        price: "330 ₽",
+        proteins: 15,
+        fats: 12,
+        carbs: 26
+    },
+    "cheese_shaurma": {
+        name: "Столько сыра шаверма",
+        weight: "320 г",
+        description: "Куриное филе, томат, капуста китайская, лук красный, соус белый, сыр моцарелла, лаваш бездрожжевой.",
+        price: "340 ₽",
+        proteins: 16,
+        fats: 14,
+        carbs: 22
+    },
+    "zhnets_shaurma": {
+        name: "Жнец шаверма",
+        weight: "350 г",
+        description: "Куриное филе, бекон, картофель фри, огурец, томат, лук красный, капуста китайская, соус Барбекю.",
+        price: "370 ₽",
+        proteins: 18,
+        fats: 19,
+        carbs: 29
+    }
+};
+
+
+
+productCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const productId = card.getAttribute('data-id'); // Получаем ID товара
+        const product = productsData[productId]; // Достаем данные из объекта
+
+        if (product) {
+            modalImage.src = product.image;
+            modalTitle.textContent = product.name;
+            modalWeight.textContent = product.weight;
+            modalDescription.textContent = product.description;
+            modalPrice.textContent = product.price;
+
+            // Заполняем БЖУ
+            document.getElementById('modal-proteins').textContent = product.proteins;
+            document.getElementById('modal-fats').textContent = product.fats;
+            document.getElementById('modal-carbs').textContent = product.carbs;
+
+            modalOverlay.style.display = 'flex';
+        }
+    });
+});
+
