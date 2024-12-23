@@ -1,31 +1,3 @@
-<!-- TODO
-https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
-    
-    
-    17. Добавить "динамичное" время доставки
-    20. Добавить страницу корзины
-    98. Отдельные страницы для доставки
-    99. Сделать интеграцию с Yandex картами, для доставки
-    
-    В ПОСЛЕДНЮЮ ОЧЕРЕДЬ:
-    100. Сделать так чтобы на карте можно было выбирать конкретное место, куда необходимо будет доставить ЕДУ ????
-    101. Подключение оплаты ?????
-    150. Залить на github pages
-    200. Сделать вёрстку адаптивной (для каждого дисплея свой размер)
-    250. Добавить админ-панель для добавления/изменения контента
-    300. Добавить чат с "поддержкой"
-    1500. Добавить какую-нибудь фишку-пасхалочку ?????
-
-
-    АНТОН:
-    4. Сделать латте кликабельным
-    13. В карточке поменять цвет "добавить" + количество и цену 
-    18. Добавить карточки для кофе
-
-    НИКИТА:
-никита все сделал и уходит на покой
-
-!-->
 <!DOCTYPE html>
 
 
@@ -38,8 +10,6 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
     <script async src="script.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-
-
 </head>
 <body>
 
@@ -48,26 +18,13 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
     <header>
     <div class="header-top">
         <div class="logo">
-    <a href="site.html">
+    <a href="index.html">
         <img src="https://psv4.userapi.com/s/v1/d/NM0bV_sbBv1Ofl3qbkKoUowW7nSY1MBlB37XLrAI4fbmeJirLRa6DEVJcY3nDo2Rrx48vnDygUWV0zqCmS_pi0f2r_WdzkjsSc4IzG--cMjXyPovfG1RAA/777.png" alt="ШАУРУМ" width="100" height="100">
     </a>
 </div>
-    <!-- Строка с выбором города и доставкой -->
-    <div class="header-city-info">
-        <div>
-            Ваш город:
+ <div class="site-name">
+            ШАУРУМ.нск
         </div>
-        <select class="city-select" id="city-select">
-            <option value="Москва">Москва</option>
-            <option value="Санкт-Петербург">Санкт-Петербург</option>
-            <option value="Новосибирск" selected>Новосибирск</option>
-            <option value="Екатеринбург">Екатеринбург</option>
-            <option value="Нижний Новгород">Нижний Новгород</option>
-        </select>
-        <div>
-            Доставка работает круглосуточно
-        </div>
-    </div>
     <div class="header-bottom">
         <div class="cart-info" id="cart-info">
             Корзина <span id="cart-count">(0)</span>
@@ -85,7 +42,7 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
         <a href="#snacks">Закуски</a>
         <a href="#lunches">Ланчи</a>
         <a href="#kids">Детское меню</a>
-        <a href="#delivery-payment">Доставка и оплата</a>
+        <a href="#delivery">Доставка и оплата</a>
     </nav>
     <!-- Поиск и корзина -->
 </header>
@@ -539,6 +496,62 @@ https://www.youtube.com/watch?v=mxJ0TPsHYQ0&ab_channel=ПавелЕбаноб
         </div>
     </div>
 </div>
+
+
+
+
+<div id="delivery-payment-modal" class="modal-delivery-overlay" style="display:none;">
+    <div class="modal-delivery">
+        <button class="close-btn" id="close-delivery-modal">&times;</button>
+        <h2 class="modal-title">Куда доставим</h2>
+        <div class="delivery-conditions">
+            <div class="delivery-left">
+                <ul>
+                    <li><span class="circle yellow"></span> Жёлтый регион — 100 ₽</li>
+                    <li><span class="circle green"></span> Зелёный регион — 150 ₽</li>
+                </ul>
+                <!-- Поле для ввода адреса -->
+<div class="address-input">
+    <label for="delivery-address">Адрес:</label>
+    <input type="text" id="delivery-address" placeholder="Введите ваш адрес">
+</div>
+
+            </div>
+            <div class="delivery-right">
+                <ul>
+                    <li><span class="circle gray"></span> Серый регион — 200 ₽</li>
+                    <li><span class="circle blue"></span> Голубой регион — 250 ₽</li>
+                    <li><span class="circle red"></span> Красный регион — 300 ₽</li>
+                </ul>
+            </div>
+        </div>
+        <div class="map-container">
+            <!-- Яндекс.Карта -->
+            <script type="text/javascript" charset="utf-8" async 
+                src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Af4d3b521ee21279985920533427419b6c7c61b5e7434071b8425bd042bce3ca8&amp;width=100%25&amp;height=450&amp;lang=ru_RU&amp;scroll=true">
+            </script>
+        </div>
+        <div class="modal-footer">
+            <button class="ready-btn" id="delivery-done-btn">Готово</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="payment-modal" class="modal-overlay" style="display: none;">
+    <div class="modal">
+        <button id="close-payment-modal" class="close-btn">&times;</button>
+        <h2 class="thank-you-title">Спасибо за заказ!
+        <p>Мы дали браткам готовить (cook).</p>
+        <p>Скоро ваш заказ будет готов и курьер доставит его по адресу, который вы указали.</p></h2>
+    
+        <div class="modal-content">
+            <!-- Пустое содержимое для дальнейшего функционала -->
+        </div>
+    </div>
+</div>
+
+
 
 </body>
 </html>

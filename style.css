@@ -26,6 +26,18 @@ header {
   }
 }
 
+.site-name {
+    font-size: 40px; /* Увеличенный размер шрифта */
+    font-weight: 900; /* Толстый шрифт */
+    text-transform: uppercase; /* Верхний регистр */
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #303030; /* Цвет текста */
+    letter-spacing: 2px; /* Расстояние между буквами */
+}
+
 
 .header-top {
     display: flex;
@@ -136,16 +148,26 @@ nav a:hover::after {
     font-size: 15px;
     padding: 10px 20px;
     border-color: #000000;
+	display: none;
     border-radius: 5px;
-    display: none;
     position: absolute;
     right: 0;
     top: 100%;
     background: #fff;
-    border: 1px solid #575757;   
+    border: 1px solid #575757;
     z-index: 999;
-    width: 200px;
+    width: 300px; /* Увеличиваем ширину */
+    max-height: 400px; /* Добавляем ограничение по высоте */
+    overflow-y: auto; /* Прокрутка, если слишком много товаров */
+    opacity: 0; /* Прозрачность 0 */
+    transition: opacity 0.5s ease; /* Плавный переход прозрачности */
 }
+
+.cart-dropdown.show {
+    display: block; /* Отображение */
+    opacity: 1; /* Прозрачность 1 */
+}
+
 
 .cart-dropdown.empty-cart {
     font-size: 14px;
@@ -154,11 +176,73 @@ nav a:hover::after {
 
 .cart-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    font-size: 14px;
-    margin: 10px 0;
+    gap: 10px;
+    margin-bottom: 10px;
 }
+
+.cart-item-image {
+    width: 40px; /* Уменьшенное изображение */
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.cart-item-name {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+    overflow: hidden; /* Обрезаем текст, если он слишком длинный */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.cart-item-price {
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.cart-item-remove {
+    background: rgb(180, 50, 50);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.cart-total-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.cart-total-price {
+    color: #000;
+}
+.cart-item-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-item-number {
+    font-weight: bold;
+    margin-right: 5px;
+    color: #555;
+}
+
+
 
 .cart-item button {
     background: rgb(180, 50, 50);
@@ -656,6 +740,8 @@ footer {
 }
 
 
+
+
 #coffee-modal-overlay {
     position: fixed;
     top: 0;
@@ -718,4 +804,177 @@ footer {
     border-radius: 8px;
     cursor: pointer;
 }
+
+
+
+
+
+.modal-delivery-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-delivery {
+    background: #fff;
+    border-radius: 8px;
+    max-width: 1000px; /* Ширина остаётся увеличенной */
+    width: 100%;
+    max-height: 90%; /* Увеличиваем максимальную высоту */
+    height: 82%; /* Увеличенная высота */
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow-y: auto; /* Прокрутка для содержимого, если оно превышает высоту */
+}
+
+
+.modal-delivery .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-nazvanie {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.delivery-conditions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.delivery-left ul,
+.delivery-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.delivery-left li,
+.delivery-right li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.circle {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.circle.yellow {
+    background-color: yellow;
+}
+
+.circle.green {
+    background-color: green;
+}
+
+.circle.red {
+    background-color: red;
+}
+
+.circle.gray {
+    background-color: gray;
+}
+
+.circle.blue {
+    background-color: lightblue;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.ready-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.ready-btn:hover {
+    background-color: darkred;
+}
+
+.map-container {
+    margin-top: 20px;
+    width: 100%;
+    height: 450px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.address-input {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.address-input label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.address-input input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+.pay-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.pay-btn:hover {
+    background-color: #c82333;
+}
+
+.thank-you-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745; /* Зелёный цвет */
+    margin-bottom: 20px;
+	text-align: center;
+}
+
 

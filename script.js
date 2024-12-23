@@ -1,9 +1,4 @@
-// Выбор города
-const citySelect = document.getElementById('city-select');
-const selectedCitySpan = document.getElementById('selected-city');
-citySelect.addEventListener('change', () => {
-    selectedCitySpan.textContent = citySelect.value;
-});
+
 
 // Поиск (пока просто выводим в консоль)
 
@@ -58,7 +53,9 @@ const cartCount = document.getElementById('cart-count');
 let cartItems = [];
 
 function updateCartUI() {
-    cartDropdown.innerHTML = '';
+    cartDropdown.innerHTML = ''; // Очищаем содержимое корзины
+    let totalPrice = 0; // Переменная для хранения итоговой стоимости
+
     if (cartItems.length === 0) {
         cartCount.textContent = '(0)';
         const emptyDiv = document.createElement('div');
@@ -67,31 +64,151 @@ function updateCartUI() {
         cartDropdown.appendChild(emptyDiv);
     } else {
         cartCount.textContent = `(${cartItems.length})`;
+
+        // Создаём элементы для каждого товара
         cartItems.forEach((item, index) => {
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('cart-item');
             itemDiv.innerHTML = `
-                <span>${item.name}</span>
-                <button data-index="${index}">Удалить</button>
+                <div class="cart-item-details">
+                    <span class="cart-item-number">${index + 1}.</span>
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-price">${item.price} ₽</span>
+                </div>
+                <button data-index="${index}" class="cart-item-remove">Удалить</button>
             `;
             cartDropdown.appendChild(itemDiv);
+
+            // Добавляем цену товара к итоговой стоимости
+            totalPrice += parseFloat(item.price);
+        });
+
+        // Добавляем итоговую стоимость и кнопку "Оплатить"
+        const totalDiv = document.createElement('div');
+        totalDiv.classList.add('cart-total');
+        totalDiv.innerHTML = `
+            <div class="cart-total-details">
+                <span class="cart-total-label">Итого:</span>
+                <span class="cart-total-price">${totalPrice.toFixed(2)} ₽</span>
+                <button id="pay-button" class="pay-btn">Оплатить</button>
+            </div>
+        `;
+        cartDropdown.appendChild(totalDiv);
+
+        // Добавляем обработчик для кнопки "Оплатить"
+        const payButton = totalDiv.querySelector('#pay-button');
+        payButton.addEventListener('click', () => {
+            paymentModal.style.display = 'flex'; // Открываем модальное окно оплаты
         });
     }
+
+    // Добавляем обработчик для удаления товара
+    cartDropdown.querySelectorAll('.cart-item-remove').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const index = parseInt(e.target.getAttribute('data-index'), 10);
+            cartItems.splice(index, 1); // Удаляем товар из массива
+            updateCartUI(); // Обновляем UI корзины
+        });
+    });
 }
 
-cartDropdown.addEventListener('click', (e) => {
-    if (e.target.tagName.toLowerCase() === 'button') {
-        const idx = e.target.getAttribute('data-index');
-        cartItems.splice(idx, 1);
-        updateCartUI();
+const paymentModal = document.getElementById('payment-modal');
+const closePaymentModal = document.getElementById('close-payment-modal');
+
+// Закрытие модального окна оплаты
+closePaymentModal.addEventListener('click', () => {
+    paymentModal.style.display = 'none';
+});
+
+// Закрытие модального окна при клике вне его
+paymentModal.addEventListener('click', (event) => {
+    if (event.target === paymentModal) {
+        paymentModal.style.display = 'none';
     }
 });
 
-cartInfo.addEventListener('click', (e) => {
-    if (cartItems.length > 0) {
-        alert('Страница корзины: Здесь будут товары и кнопка "Оформить заказ"');
-    }
+
+let cartHideTimeout; // Таймер для задержки скрытия
+
+// Показать корзину, если курсор наведен
+cartInfo.addEventListener('mouseover', () => {
+    clearTimeout(cartHideTimeout); // Останавливаем таймер, если он активен
+    cartDropdown.classList.add('show'); // Добавляем класс для плавного появления
 });
+
+// Скрыть корзину, если курсор ушёл
+cartInfo.addEventListener('mouseleave', () => {
+    cartHideTimeout = setTimeout(() => {
+        cartDropdown.classList.remove('show'); // Убираем класс для плавного исчезновения
+    }, 2000); // 2000 миллисекунд = 2 секунды
+});
+
+// Если курсор снова наведен на меню корзины, оно не убирается
+cartDropdown.addEventListener('mouseover', () => {
+    clearTimeout(cartHideTimeout); // Останавливаем таймер
+    cartDropdown.classList.add('show'); // Гарантируем, что корзина остаётся видимой
+});
+
+// Если курсор уходит с меню корзины, запускается таймер на скрытие
+cartDropdown.addEventListener('mouseleave', () => {
+    cartHideTimeout = setTimeout(() => {
+        cartDropdown.classList.remove('show'); // Убираем класс для плавного исчезновения
+    }, 2000);
+});
+
+
+
+
+
+
+
+// Стилизация иконок товара
+const cartStyle = document.createElement('style');
+cartStyle.textContent = `
+    .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .cart-item-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+    .cart-item-name {
+        font-size: 14px;
+        font-weight: 500;
+        flex: 1;
+    }
+    .cart-item-price {
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .cart-item-remove {
+        background: rgb(180, 50, 50);
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+`;
+document.head.appendChild(cartStyle);
+
+
+cartDropdown.querySelectorAll('.cart-item-remove').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const index = parseInt(e.target.getAttribute('data-index'), 10);
+        cartItems.splice(index, 1); // Удаляем товар из массива
+        updateCartUI(); // Обновляем UI корзины
+    });
+});
+
+
 
 updateCartUI();
 
@@ -119,27 +236,50 @@ modalClose.addEventListener('click', () => {
     modalOverlay.style.display = 'none';
 });
 
+// Кнопка увеличения количества
+plusBtn.addEventListener('click', () => {
+    quantity++;
+    quantitySpan.textContent = quantity;
+
+    // Обновляем цену в модальном окне
+    if (currentProduct) {
+        const basePrice = parseFloat(currentProduct.price); // Цена за единицу товара
+        const newPrice = basePrice * quantity; // Общая цена
+        modalPrice.textContent = `${newPrice} `; // Обновление цены в модалке
+    }
+});
+
+// Кнопка уменьшения количества
 minusBtn.addEventListener('click', () => {
     if (quantity > 1) {
         quantity--;
         quantitySpan.textContent = quantity;
+
+        // Обновляем цену в модальном окне
+        if (currentProduct) {
+            const basePrice = parseFloat(currentProduct.price);
+            const newPrice = basePrice * quantity;
+            modalPrice.textContent = `${newPrice} `; // Обновление цены в модалке
+        }
     }
 });
 
-plusBtn.addEventListener('click', () => {
-    quantity++;
-    quantitySpan.textContent = quantity;
-});
 
 addToCartBtn.addEventListener('click', () => {
     if (currentProduct) {
-        for (let i=0; i<quantity; i++) {
-            cartItems.push({name: currentProduct.name, price: currentProduct.price});
+        for (let i = 0; i < quantity; i++) {
+            cartItems.push({
+                name: currentProduct.name,
+                price: currentProduct.price,
+            });
         }
         updateCartUI();
         modalOverlay.style.display = 'none';
     }
 });
+
+
+
 
 // Закрытие модалки по клику вне её
 modalOverlay.addEventListener('click', (e) => {
@@ -454,22 +594,52 @@ productCards.forEach(card => {
     card.addEventListener('click', () => {
         const productId = card.getAttribute('data-id');
         const product = productsData[productId];
-        const productImage = card.getAttribute('data-image');
+        const productImage = card.getAttribute('data-image'); // Извлекаем URL изображения
+        let quantity = 1; // Начальное количество товара
 
         if (product) {
+            // Добавляем изображение в объект продукта
+            product.image = productImage;
+
             if (productId.includes('shaurma')) {
                 // Модальное окно для шавермы
-                modalImage.src = productImage;
+                modalImage.src = productImage; // Устанавливаем изображение в модальном окне
                 modalTitle.textContent = product.name;
                 modalWeight.textContent = product.weight;
                 modalDescription.textContent = product.description;
-                modalPrice.textContent = product.price;
+                modalPrice.textContent = `${product.price} `; // Установка базовой цены
 
                 document.getElementById('modal-proteins').textContent = product.proteins;
                 document.getElementById('modal-fats').textContent = product.fats;
                 document.getElementById('modal-carbs').textContent = product.carbs;
 
                 modalOverlay.style.display = 'flex';
+
+                // Обработчики кнопок + и -
+                const updatePrice = () => {
+                    const basePrice = parseFloat(product.price); // Цена за единицу
+                    const newPrice = basePrice * quantity; // Общая цена
+                    modalPrice.textContent = `${newPrice} `;
+                };
+
+                plusBtn.addEventListener('click', () => {
+                    quantity++;
+                    quantitySpan.textContent = quantity;
+                    updatePrice();
+                });
+
+                minusBtn.addEventListener('click', () => {
+                    if (quantity > 1) {
+                        quantity--;
+                        quantitySpan.textContent = quantity;
+                        updatePrice();
+                    }
+                });
+
+                // Сбрасываем количество при каждом открытии модального окна
+                quantity = 1;
+                quantitySpan.textContent = quantity;
+                updatePrice();
             } else {
                 // Модальное окно для других товаров
                 const generalModalOverlay = document.getElementById('general-modal-overlay');
@@ -484,7 +654,7 @@ productCards.forEach(card => {
                 generalModalTitle.textContent = product.name;
                 generalModalWeight.textContent = product.weight;
                 generalModalDescription.textContent = product.description;
-                generalModalPrice.textContent = product.price;
+                generalModalPrice.textContent = `${product.price} `;
 
                 document.getElementById('general-modal-proteins').textContent = product.proteins;
                 document.getElementById('general-modal-fats').textContent = product.fats;
@@ -493,10 +663,40 @@ productCards.forEach(card => {
                 generalQuantitySpan.textContent = '1';
 
                 generalModalOverlay.style.display = 'flex';
+
+                // Аналогичная логика обновления цены для общего модального окна
+                let generalQuantity = 1;
+
+                const updateGeneralPrice = () => {
+                    const basePrice = parseFloat(product.price);
+                    const newPrice = basePrice * generalQuantity;
+                    generalModalPrice.textContent = `${newPrice} `;
+                };
+
+                document.getElementById('general-plus-btn').addEventListener('click', () => {
+                    generalQuantity++;
+                    generalQuantitySpan.textContent = generalQuantity;
+                    updateGeneralPrice();
+                });
+
+                document.getElementById('general-minus-btn').addEventListener('click', () => {
+                    if (generalQuantity > 1) {
+                        generalQuantity--;
+                        generalQuantitySpan.textContent = generalQuantity;
+                        updateGeneralPrice();
+                    }
+                });
+
+                // Сбрасываем количество при каждом открытии общего модального окна
+                generalQuantity = 1;
+                generalQuantitySpan.textContent = generalQuantity;
+                updateGeneralPrice();
             }
         }
     });
 });
+
+
 
 // Закрытие модального окна для шавермы
 document.getElementById('modal-close').addEventListener('click', () => {
@@ -542,5 +742,52 @@ document.getElementById('general-add-to-cart-btn').addEventListener('click', () 
     updateCartUI();
     document.getElementById('general-modal-overlay').style.display = 'none';
 });
+
+
+// Открытие модального окна "Доставка и оплата"
+const deliveryLink = document.querySelector('a[href="#delivery"]'); // Ссылка "Доставка и оплата"
+const deliveryModal = document.getElementById('delivery-payment-modal'); // Модальное окно доставки
+const closeDeliveryModal = document.getElementById('close-delivery-modal'); // Крестик для закрытия
+const doneButton = document.getElementById('delivery-done-btn'); // Кнопка "Готово"
+const deliveryAddress = document.getElementById('delivery-address'); // Поле ввода адреса
+
+// Открытие модального окна при клике на "Доставка и оплата"
+deliveryLink.addEventListener('click', (event) => {
+    event.preventDefault(); // Предотвращаем переход по ссылке
+    deliveryModal.style.display = 'flex'; // Отображаем модальное окно
+});
+
+// Закрытие модального окна при клике на крестик
+closeDeliveryModal.addEventListener('click', () => {
+    deliveryModal.style.display = 'none'; // Скрываем модальное окно
+    clearDeliveryAddress(); // Очищаем поле адреса
+});
+
+// Закрытие модального окна при клике на кнопку "Готово"
+doneButton.addEventListener('click', () => {
+    deliveryModal.style.display = 'none'; // Скрываем модальное окно
+    clearDeliveryAddress(); // Очищаем поле адреса
+});
+
+// Закрытие модального окна при клике вне контента
+deliveryModal.addEventListener('click', (event) => {
+    if (event.target === deliveryModal) {
+        deliveryModal.style.display = 'none';
+        clearDeliveryAddress();
+    }
+});
+
+// Функция очистки адреса
+function clearDeliveryAddress() {
+    if (deliveryAddress) {
+        deliveryAddress.value = ''; // Очищаем поле адреса
+    }
+}
+
+
+
+
+
+
 
 
